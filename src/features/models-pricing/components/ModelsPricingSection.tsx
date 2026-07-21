@@ -21,7 +21,7 @@ export function ModelsPricingSection() {
 
   return (
     <section
-      className="space-section-y bg-surface text-accent-alt"
+      className="space-section-y overflow-x-clip bg-surface text-accent-alt"
       id="models-pricing"
     >
       <Container>

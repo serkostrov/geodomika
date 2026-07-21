@@ -91,6 +91,18 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    width: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+    width: 100%;
+  }
+
+  #root {
+    overflow-x: clip;
+    width: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {

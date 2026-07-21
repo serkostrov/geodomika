@@ -14,7 +14,7 @@ import { WinterSeasonSection } from '@/features/winter-season'
 
 export function HomePage() {
   return (
-    <main>
+    <main className="w-full max-w-full overflow-x-clip">
       <HeroSection />
       <TechnologySection />
       <GuestExperienceSection />
