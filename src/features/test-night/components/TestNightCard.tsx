@@ -8,7 +8,7 @@ import { TestNightForm } from './TestNightForm'
 
 export function TestNightCard() {
   return (
-    <div className="test-night-glass h-fit w-full max-w-[500px] rounded-lg px-6 pt-10 pb-8 min-[481px]:px-12 min-[481px]:pt-14 min-[481px]:pb-12">
+    <div className="test-night-glass h-fit w-full max-w-[500px] min-[721px]:rounded-lg min-[721px]:px-12 min-[721px]:pt-14 min-[721px]:pb-12">
       <h2 className="type-heading mb-4 uppercase min-[721px]:mb-10 min-[1200px]:mb-6">
         <span className="text-accent-2">{TEST_NIGHT_TITLE_LINE_GOLD}</span>
         <br />

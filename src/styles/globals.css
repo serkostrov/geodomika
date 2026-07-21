@@ -523,9 +523,9 @@
   .guest-experience-overlay {
     background: linear-gradient(
       180deg,
-      rgba(18, 16, 12, 0.7) 0%,
-      rgba(18, 16, 12, 0.45) 50%,
-      rgba(18, 16, 12, 0.2) 100%
+      rgba(15, 16, 12, 0.82) 0%,
+      rgba(15, 16, 12, 0.62) 42%,
+      rgba(15, 16, 12, 0.82) 100%
     );
   }
 
@@ -533,10 +533,10 @@
     .guest-experience-overlay {
       background: linear-gradient(
         90deg,
-        rgba(18, 16, 12, 0.62) 0%,
-        rgba(18, 16, 12, 0.42) 28%,
-        rgba(18, 16, 12, 0.18) 48%,
-        rgba(18, 16, 12, 0) 72%
+        rgba(15, 16, 12, 0.78) 0%,
+        rgba(15, 16, 12, 0.58) 28%,
+        rgba(15, 16, 12, 0.32) 48%,
+        rgba(15, 16, 12, 0.08) 72%
       );
     }
   }
@@ -544,9 +544,9 @@
   .test-night-overlay {
     background: linear-gradient(
       180deg,
-      rgba(15, 16, 12, 0.5) 0%,
-      rgba(15, 16, 12, 0.25) 50%,
-      rgba(15, 16, 12, 0.1) 100%
+      rgba(15, 16, 12, 0.68) 0%,
+      rgba(15, 16, 12, 0.58) 32%,
+      rgba(15, 16, 12, 0.9) 100%
     );
   }
 
@@ -554,9 +554,9 @@
     .test-night-overlay {
       background: linear-gradient(
         90deg,
-        rgba(15, 16, 12, 0.35) 0%,
-        rgba(15, 16, 12, 0.15) 35%,
-        rgba(15, 16, 12, 0) 65%
+        rgba(15, 16, 12, 0.52) 0%,
+        rgba(15, 16, 12, 0.28) 35%,
+        rgba(15, 16, 12, 0.08) 65%
       );
     }
   }
@@ -567,32 +567,48 @@
    * Avoid transform/isolation/filter on this element — they break blur.
    */
   .test-night-glass {
-    background-color: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
-    backdrop-filter: saturate(180%) blur(12px);
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .winter-season-glass {
-    background-color: rgba(255, 255, 255, 0.15);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
-    backdrop-filter: saturate(180%) blur(12px);
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  @media (min-width: 721px) {
+    .test-night-glass {
+      background-color: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      backdrop-filter: saturate(180%) blur(12px);
+    }
+
+    .winter-season-glass {
+      background-color: rgba(255, 255, 255, 0.15);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      backdrop-filter: saturate(180%) blur(12px);
+    }
   }
 
   @supports not (
     (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
   ) {
-    .test-night-glass,
-    .winter-season-glass {
-      background-color: rgba(32, 33, 41, 0.78);
+    @media (min-width: 721px) {
+      .test-night-glass,
+      .winter-season-glass {
+        background-color: rgba(32, 33, 41, 0.78);
+      }
     }
   }
 
   .winter-season-overlay {
     background: linear-gradient(
       180deg,
-      rgba(15, 16, 12, 0.65) 0%,
-      rgba(15, 16, 12, 0.4) 50%,
-      rgba(15, 16, 12, 0.15) 100%
+      rgba(15, 16, 12, 0.72) 0%,
+      rgba(15, 16, 12, 0.62) 38%,
+      rgba(15, 16, 12, 0.92) 100%
     );
   }
 
@@ -600,10 +616,10 @@
     .winter-season-overlay {
       background: linear-gradient(
         90deg,
-        rgba(15, 16, 12, 0.55) 0%,
-        rgba(15, 16, 12, 0.35) 38%,
-        rgba(15, 16, 12, 0.15) 62%,
-        rgba(15, 16, 12, 0.05) 100%
+        rgba(15, 16, 12, 0.72) 0%,
+        rgba(15, 16, 12, 0.5) 38%,
+        rgba(15, 16, 12, 0.28) 62%,
+        rgba(15, 16, 12, 0.12) 100%
       );
     }
   }

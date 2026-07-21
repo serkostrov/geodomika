@@ -26,7 +26,7 @@ export function WinterSeasonSection() {
           className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
         />
 
-        <Container className="space-section-y-media relative z-10 flex h-full items-center">
+        <Container className="space-section-y-media relative z-10 flex h-full items-end min-[721px]:items-center">
           <WinterSeasonCard />
         </Container>
       </div>

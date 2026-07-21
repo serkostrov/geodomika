@@ -1,4 +1,3 @@
-import particlesIcon from '@/assets/icons/winter-season/particles.png'
 import { cn } from '@/shared/lib/cn'
 
 import { WINTER_SEASON_DESCRIPTION_PARAGRAPHS, WINTER_SEASON_TITLE_LINES } from '../constants/content'
@@ -7,16 +6,7 @@ import { WinterSeasonCta } from './WinterSeasonCta'
 
 export function WinterSeasonCard() {
   return (
-    <div className="space-card-pad winter-season-glass w-full max-w-[580px] rounded-lg">
-      <img
-        alt=""
-        aria-hidden="true"
-        className="space-stack-title h-[43px] w-[60px] object-contain object-left"
-        height={43}
-        src={particlesIcon}
-        width={60}
-      />
-
+    <div className="winter-season-glass w-full max-w-[580px] min-[721px]:space-card-pad min-[721px]:rounded-lg">
       <h2 className="type-heading space-stack-title uppercase">
         {WINTER_SEASON_TITLE_LINES.map((line, lineIndex) => (
           <span key={lineIndex} className="block">

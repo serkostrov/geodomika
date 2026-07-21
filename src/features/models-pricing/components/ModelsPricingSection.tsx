@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { Container } from '@/shared/components/layout/container'
-import { cn } from '@/shared/lib/cn'
 
 import {
   MODELS_PRICING_MODELS,
@@ -28,13 +27,10 @@ export function ModelsPricingSection() {
         <ModelsPricingHeader />
 
         <div className="space-block grid grid-cols-1 gap-6 min-[481px]:grid-cols-2 min-[721px]:gap-8 min-[861px]:grid-cols-3 min-[1200px]:flex min-[1200px]:flex-nowrap min-[1200px]:items-stretch min-[1200px]:gap-4">
-          {MODELS_PRICING_MODELS.map((model, index) => (
+          {MODELS_PRICING_MODELS.map((model) => (
             <ModelsPricingCard
               key={model.id}
-              className={cn(
-                index % 2 === 0 ? 'border-0 bg-surface-warm' : '',
-                'min-[1200px]:min-w-0 min-[1200px]:flex-1',
-              )}
+              className="min-[1200px]:min-w-0 min-[1200px]:flex-1 border-0 bg-surface-warm"
               model={model}
               onOpen={setActiveModel}
             />
