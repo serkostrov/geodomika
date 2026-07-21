@@ -74,6 +74,86 @@ const galleryModules = import.meta.glob(
   },
 ) as Record<string, string>
 
+function isTechnicalTheme(theme: Theme): boolean {
+  return theme === 'construction' || theme === 'detail' || theme === 'transport'
+}
+
+function shuffleArray<T>(input: T[]): T[] {
+  const arr = input.slice()
+
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+
+  return arr
+}
+
+/** Чередует пейзажи и технические кадры; два technical подряд не ставит, если хватает пейзажей. */
+export function orderModelsPricingGallerySlides(
+  slides: ModelsPricingGallerySlide[],
+): ModelsPricingGallerySlide[] {
+  const landscape = shuffleArray(
+    slides.filter((slide) => !isTechnicalTheme(slide.theme)),
+  )
+  const technical = shuffleArray(
+    slides.filter((slide) => isTechnicalTheme(slide.theme)),
+  )
+  const result: ModelsPricingGallerySlide[] = []
+  let pickLandscape = true
+
+  while (landscape.length > 0 || technical.length > 0) {
+    const lastIsTechnical =
+      result.length > 0 &&
+      isTechnicalTheme(result[result.length - 1].theme)
+
+    if (lastIsTechnical) {
+      if (landscape.length > 0) {
+        result.push(landscape.shift()!)
+        pickLandscape = false
+      } else if (technical.length > 0) {
+        result.push(technical.shift()!)
+      }
+      continue
+    }
+
+    if (pickLandscape && landscape.length > 0) {
+      result.push(landscape.shift()!)
+      pickLandscape = false
+    } else if (technical.length > 0) {
+      result.push(technical.shift()!)
+      pickLandscape = true
+    } else if (landscape.length > 0) {
+      result.push(landscape.shift()!)
+      pickLandscape = false
+    }
+  }
+
+  if (result.length > 1) {
+    const first = result[0]
+    const last = result[result.length - 1]
+    if (
+      isTechnicalTheme(first.theme) &&
+      isTechnicalTheme(last.theme)
+    ) {
+      const landscapeIndex = result.findIndex(
+        (slide, index) =>
+          index > 0 &&
+          index < result.length - 1 &&
+          !isTechnicalTheme(slide.theme),
+      )
+
+      if (landscapeIndex !== -1) {
+        const landscape = result[landscapeIndex]
+        result[landscapeIndex] = last
+        result[result.length - 1] = landscape
+      }
+    }
+  }
+
+  return result
+}
+
 export const MODELS_PRICING_GALLERY_SLIDES: ModelsPricingGallerySlide[] =
   Object.entries(galleryModules)
     .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))

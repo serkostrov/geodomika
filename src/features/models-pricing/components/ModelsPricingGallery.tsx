@@ -4,50 +4,9 @@ import arrowLeftIcon from '@/assets/icons/hero/arrow-left.svg'
 import arrowRightIcon from '@/assets/icons/hero/arrow-right.svg'
 import { cn } from '@/shared/lib/cn'
 
-import { MODELS_PRICING_GALLERY_SLIDES, type ModelsPricingGallerySlide } from '../constants/gallery'
+import { MODELS_PRICING_GALLERY_SLIDES, orderModelsPricingGallerySlides } from '../constants/gallery'
 
 const SCROLL_EDGE_OFFSET = 2
-
-function shuffleArray<T>(input: T[]) {
-  const arr = input.slice()
-
-  for (let i = arr.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
-  }
-
-  return arr
-}
-
-function interleaveByTheme(slides: ModelsPricingGallerySlide[]) {
-  const groups = new Map<ModelsPricingGallerySlide['theme'], ModelsPricingGallerySlide[]>()
-  for (const slide of slides) {
-    const list = groups.get(slide.theme)
-    if (list) list.push(slide)
-    else groups.set(slide.theme, [slide])
-  }
-
-  const themes = shuffleArray(Array.from(groups.keys()))
-  const queues = themes.map((theme) => shuffleArray(groups.get(theme) ?? []))
-  const result: ModelsPricingGallerySlide[] = []
-
-  while (result.length < slides.length) {
-    let pushed = false
-
-    for (let i = 0; i < queues.length; i += 1) {
-      const queue = queues[i]
-      const next = queue.shift()
-      if (next) {
-        result.push(next)
-        pushed = true
-      }
-    }
-
-    if (!pushed) break
-  }
-
-  return result
-}
 
 function measureLoopWidth(container: HTMLDivElement, slideCount: number) {
   const first = container.children[0] as HTMLElement | undefined
@@ -62,7 +21,7 @@ export function ModelsPricingGallery() {
   const isAdjustingScrollRef = useRef(false)
 
   const orderedSlides = useMemo(
-    () => interleaveByTheme(MODELS_PRICING_GALLERY_SLIDES),
+    () => orderModelsPricingGallerySlides(MODELS_PRICING_GALLERY_SLIDES),
     [],
   )
 
