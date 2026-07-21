@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { Container } from '@/shared/components/layout/container'
+
 import burgerMenuIcon from '@/assets/icons/hero/burger-menu.svg'
 import logoIcon from '@/assets/icons/hero/logo.svg'
 import phoneIcon from '@/assets/icons/hero/phone.svg'
@@ -27,7 +29,7 @@ export function HeroHeader() {
   return (
     <>
     <header className="flex items-center gap-4 min-[721px]:gap-6 min-[1101px]:gap-16">
-      <a aria-label="Геодомика — на главную" className="inline-flex shrink-0" href="/">
+      <a aria-label="Геодомика — на главную" className="inline-flex shrink-0 pl-0.5" href="/">
         <img
           alt="Геодомика"
           className="h-[68px] w-[76px] min-[721px]:h-[90px] min-[721px]:w-[100px]"
@@ -133,51 +135,54 @@ export function HeroHeader() {
 
         <nav
           aria-label="Мобильная навигация"
-          className="absolute inset-x-0 top-0 max-h-[100dvh] overflow-y-auto bg-accent-alt px-5 pb-8 pt-6 shadow-2xl"
+          className="absolute inset-x-0 top-0 max-h-[100dvh] overflow-x-hidden overflow-y-auto bg-accent-alt shadow-2xl"
         >
-          <div className="mb-8 flex items-center justify-between">
-            <a
-              aria-label="Геодомика — на главную"
-              className="inline-flex shrink-0"
-              href="/"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <img
-                alt="Геодомика"
-                className="h-[68px] w-[76px]"
-                height={68}
-                src={logoIcon}
-                width={76}
-              />
-            </a>
+          <Container className="pb-8 pt-[max(1.5rem,env(safe-area-inset-top,0px))]">
+            <div className="mb-6 flex min-h-10 w-full items-center justify-between gap-4">
+              <a
+                aria-label="Геодомика — на главную"
+                className="inline-flex shrink-0 pl-0.5"
+                href="/"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <img
+                  alt="Геодомика"
+                  className="h-[68px] w-[76px]"
+                  height={68}
+                  src={logoIcon}
+                  width={76}
+                />
+              </a>
 
-            <button
-              aria-label="Закрыть меню"
-              className="inline-flex size-10 items-center justify-center rounded-[5px] bg-accent text-icon-cream transition-colors hover:bg-accent-hover"
-              onClick={() => setIsMenuOpen(false)}
-              type="button"
-            >
-              <span aria-hidden="true" className="text-xl leading-none">
-                ×
-              </span>
-            </button>
-          </div>
+              <button
+                aria-label="Закрыть меню"
+                className="inline-flex size-10 shrink-0 items-center justify-center rounded-[5px] bg-accent text-icon-cream transition-colors hover:bg-accent-hover"
+                onClick={() => setIsMenuOpen(false)}
+                type="button"
+              >
+                <span aria-hidden="true" className="text-xl leading-none">
+                  ×
+                </span>
+              </button>
+            </div>
 
-          <ul className="grid gap-4 border-b border-white/10 pb-8">
-            {navigationLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  className="type-subheading uppercase text-hero-muted transition-colors hover:text-white"
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+            <div className="-mx-5 border-b border-white/10 px-5 pb-8 min-[481px]:-mx-6 min-[481px]:px-6 min-[721px]:-mx-8 min-[721px]:px-8">
+              <ul className="grid gap-4">
+                {navigationLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      className="type-subheading uppercase text-hero-muted transition-colors hover:text-white"
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="mt-8 grid gap-6">
+            <div className="mt-8 grid gap-6 pb-[env(safe-area-inset-bottom,0px)]">
             <div className="grid gap-3">
               {CONTACT_PHONES.map((phone) => (
                 <a
@@ -217,7 +222,8 @@ export function HeroHeader() {
                 </HeroSocialButton>
               ))}
             </div>
-          </div>
+            </div>
+          </Container>
         </nav>
       </div>
     ) : null}
