@@ -6,7 +6,7 @@ import { WinterSeasonCta } from './WinterSeasonCta'
 
 export function WinterSeasonCard() {
   return (
-    <div className="winter-season-glass w-full max-w-[580px] min-[721px]:space-card-pad min-[721px]:rounded-lg">
+    <div className="winter-season-glass w-full max-w-[580px] min-[721px]:rounded-lg min-[721px]:px-12 min-[721px]:py-12">
       <h2 className="type-heading space-stack-title uppercase">
         {WINTER_SEASON_TITLE_LINES.map((line, lineIndex) => (
           <span key={lineIndex} className="block">
