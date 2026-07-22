@@ -1,7 +1,7 @@
 import { cn } from '@/shared/lib/cn'
 
 export interface LegalDocumentBlock {
-  type: 'heading' | 'paragraph' | 'list-item'
+  type: 'heading' | 'paragraph' | 'list-item' | 'section-break'
   text: string
 }
 
@@ -14,6 +14,16 @@ export function LegalDocumentBody({ blocks, className }: LegalDocumentBodyProps)
   return (
     <article className={cn('legal-prose grid gap-4', className)}>
       {blocks.map((block, index) => {
+        if (block.type === 'section-break') {
+          return (
+            <div
+              key={`${block.type}-${index}`}
+              aria-hidden="true"
+              className="h-8 min-[721px]:h-12"
+            />
+          )
+        }
+
         if (block.type === 'heading') {
           return (
             <h2

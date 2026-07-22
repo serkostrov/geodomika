@@ -29,7 +29,13 @@ export function flattenLegalSections(
 ): readonly LegalDocumentBlock[] {
   const blocks: LegalDocumentBlock[] = []
 
-  for (const section of sections) {
+  for (let index = 0; index < sections.length; index++) {
+    const section = sections[index]
+
+    if (index > 0) {
+      blocks.push({ type: 'section-break', text: '' })
+    }
+
     const sectionBlocks = stripDuplicateTitleHeading(section.title, section.blocks)
 
     if (normalizeLegalTitle(section.title) !== normalizeLegalTitle(pageTitle)) {
