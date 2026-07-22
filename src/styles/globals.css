@@ -553,10 +553,10 @@
 
   .test-night-overlay {
     background: linear-gradient(
-      180deg,
-      rgba(15, 16, 12, 0.68) 0%,
-      rgba(15, 16, 12, 0.58) 32%,
-      rgba(15, 16, 12, 0.9) 100%
+      0deg,
+      rgba(15, 16, 12, 0.92) 0%,
+      rgba(15, 16, 12, 0.55) 50%,
+      rgba(15, 16, 12, 0.12) 80%
     );
   }
 
@@ -615,10 +615,10 @@
 
   .winter-season-overlay {
     background: linear-gradient(
-      180deg,
-      rgba(15, 16, 12, 0.72) 0%,
-      rgba(15, 16, 12, 0.62) 38%,
-      rgba(15, 16, 12, 0.92) 100%
+      0deg,
+      rgba(15, 16, 12, 0.92) 0%,
+      rgba(15, 16, 12, 0.55) 50%,
+      rgba(15, 16, 12, 0.12) 80%
     );
   }
 
@@ -627,9 +627,8 @@
       background: linear-gradient(
         90deg,
         rgba(15, 16, 12, 0.72) 0%,
-        rgba(15, 16, 12, 0.5) 38%,
-        rgba(15, 16, 12, 0.28) 62%,
-        rgba(15, 16, 12, 0.12) 100%
+        rgba(15, 16, 12, 0.28) 50%,
+        rgba(15, 16, 12, 0.12) 80%
       );
     }
   }

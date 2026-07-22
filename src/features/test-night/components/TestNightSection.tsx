@@ -1,3 +1,4 @@
+import testNightBackgroundMob from '@/assets/images/test-night/background-test-form-mob.webp'
 import testNightBackground from '@/assets/images/test-night/background-test-form.webp'
 import { Container } from '@/shared/components/layout/container'
 
@@ -7,16 +8,19 @@ export function TestNightSection() {
   return (
     <section className="relative w-full overflow-x-clip bg-accent-alt">
       <div className="space-section-photo relative mx-auto flex w-full">
-        <img
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 size-full object-cover object-center"
-          decoding="async"
-          height={900}
-          loading="lazy"
-          src={testNightBackground}
-          width={1600}
-        />
+        <picture>
+          <source media="(min-width: 721px)" srcSet={testNightBackground} type="image/webp" />
+          <img
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 size-full object-cover object-[72%_bottom] min-[721px]:object-center"
+            decoding="async"
+            height={925}
+            loading="lazy"
+            src={testNightBackgroundMob}
+            width={1024}
+          />
+        </picture>
 
         <div
           aria-hidden="true"

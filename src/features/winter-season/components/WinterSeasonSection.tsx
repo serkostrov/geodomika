@@ -1,3 +1,4 @@
+import winterBackgroundMob from '@/assets/images/winter-season/background-winter-mob.webp'
 import winterBackground from '@/assets/images/winter-season/background-winter.webp'
 import { Container } from '@/shared/components/layout/container'
 
@@ -7,16 +8,19 @@ export function WinterSeasonSection() {
   return (
     <section className="relative w-full overflow-x-clip bg-accent-alt">
       <div className="space-section-photo relative mx-auto w-full">
-        <img
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 size-full object-cover object-[68%_center] min-[861px]:object-[72%_center]"
-          decoding="async"
-          height={480}
-          loading="lazy"
-          src={winterBackground}
-          width={1024}
-        />
+        <picture>
+          <source media="(min-width: 721px)" srcSet={winterBackground} type="image/webp" />
+          <img
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 size-full object-cover object-[72%_bottom] min-[721px]:object-[72%_center]"
+            decoding="async"
+            height={821}
+            loading="lazy"
+            src={winterBackgroundMob}
+            width={1024}
+          />
+        </picture>
 
         <div
           aria-hidden="true"
