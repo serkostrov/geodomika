@@ -31,7 +31,7 @@ export function LegalPageHeader({ currentPage, className }: LegalPageHeaderProps
         <span aria-hidden="true" className="text-legal-brand/60">
           /
         </span>
-        <span>{currentPage}</span>
+        <span className="text-legal-brand/60">{currentPage}</span>
       </nav>
     </header>
   )
