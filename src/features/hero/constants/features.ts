@@ -11,11 +11,11 @@ export const HERO_FEATURES: HeroFeature[] = [
   {
     iconSrc: leafIcon,
     iconAlt: '',
-    lines: ['Свой завод в Саратове,', 'без посредников'],
+    lines: ['Свой завод в Саратове', ""],
   },
   {
     iconSrc: starIcon,
     iconAlt: '',
-    lines: ['Проектируем под', '−40 °C'],
+    lines: ['Проектируем под −40 °C', ""],
   },
 ]
