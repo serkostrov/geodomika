@@ -1,4 +1,4 @@
-import spaceBackground from '@/assets/images/guest-experience/space-bg.png'
+import spaceBackground from '@/assets/images/guest-experience/space-bg.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import {
@@ -16,7 +16,9 @@ export function GuestExperienceSection() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 size-full object-cover object-center"
+          decoding="async"
           height={900}
+          loading="lazy"
           src={spaceBackground}
           width={1600}
         />

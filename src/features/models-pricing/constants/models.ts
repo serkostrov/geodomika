@@ -1,13 +1,13 @@
-import bykImage from '@/assets/images/models-pricing/models/byk-d6.png'
-import kashtanImage from '@/assets/images/models-pricing/models/kashtan-d7.png'
-import kedrImage from '@/assets/images/models-pricing/models/kedr-d7.png'
-import klenImage from '@/assets/images/models-pricing/models/klen-d4.png'
-import yasenImage from '@/assets/images/models-pricing/models/yasen-d5.png'
-import bykPopupImage from '@/assets/images/models-pricing/popups/byk-d6.png'
-import kashtanPopupImage from '@/assets/images/models-pricing/popups/kashtan-d7.png'
-import kedrPopupImage from '@/assets/images/models-pricing/popups/kedr-d7.png'
-import klenPopupImage from '@/assets/images/models-pricing/popups/klen-d4.jpg'
-import yasenPopupImage from '@/assets/images/models-pricing/popups/yasen-d5.jpg'
+import bykImage from '@/assets/images/models-pricing/models/byk-d6.webp'
+import kashtanImage from '@/assets/images/models-pricing/models/kashtan-d7.webp'
+import kedrImage from '@/assets/images/models-pricing/models/kedr-d7.webp'
+import klenImage from '@/assets/images/models-pricing/models/klen-d4.webp'
+import yasenImage from '@/assets/images/models-pricing/models/yasen-d5.webp'
+import bykPopupImage from '@/assets/images/models-pricing/popups/byk-d6.webp'
+import kashtanPopupImage from '@/assets/images/models-pricing/popups/kashtan-d7.webp'
+import kedrPopupImage from '@/assets/images/models-pricing/popups/kedr-d7.webp'
+import klenPopupImage from '@/assets/images/models-pricing/popups/klen-d4.webp'
+import yasenPopupImage from '@/assets/images/models-pricing/popups/yasen-d5.webp'
 
 export interface ModelsPricingPriceRow {
   label: string

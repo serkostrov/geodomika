@@ -1,7 +1,9 @@
 import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
+import { pipeline } from 'node:stream'
 import { fileURLToPath } from 'node:url'
+import zlib from 'node:zlib'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT_DIR = path.resolve(__dirname, '..')
@@ -51,10 +53,22 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.ttf': 'font/ttf',
+  '.txt': 'text/plain; charset=utf-8',
   '.webp': 'image/webp',
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
+  '.xml': 'application/xml; charset=utf-8',
 }
+
+const COMPRESSIBLE_EXTENSIONS = new Set([
+  '.css',
+  '.html',
+  '.js',
+  '.json',
+  '.svg',
+  '.txt',
+  '.xml',
+])
 
 const rateLimitBuckets = new Map()
 const RATE_LIMIT_WINDOW_MS = 60_000
@@ -253,6 +267,11 @@ function resolveStaticPath(urlPath) {
   return filePath
 }
 
+function acceptsGzip(req) {
+  const encoding = req.headers['accept-encoding']
+  return typeof encoding === 'string' && encoding.toLowerCase().includes('gzip')
+}
+
 function serveStatic(req, res) {
   const filePath = resolveStaticPath(req.url || '/')
   if (!filePath) {
@@ -271,13 +290,43 @@ function serveStatic(req, res) {
 
   const ext = path.extname(candidate).toLowerCase()
   const contentType = MIME_TYPES[ext] || 'application/octet-stream'
-  const data = fs.readFileSync(candidate)
-
-  res.writeHead(200, {
+  const useGzip = acceptsGzip(req) && COMPRESSIBLE_EXTENSIONS.has(ext)
+  const headers = {
     'Content-Type': contentType,
-    'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=31536000, immutable',
+    'Cache-Control':
+      ext === '.html' ? 'no-cache' : 'public, max-age=31536000, immutable',
+  }
+
+  if (useGzip) {
+    headers['Content-Encoding'] = 'gzip'
+    headers.Vary = 'Accept-Encoding'
+  }
+
+  if (req.method === 'HEAD') {
+    res.writeHead(200, headers)
+    res.end()
+    return
+  }
+
+  res.writeHead(200, headers)
+
+  const source = fs.createReadStream(candidate)
+  if (useGzip) {
+    pipeline(source, zlib.createGzip({ level: 6 }), res, (error) => {
+      if (error && !res.headersSent) {
+        res.statusCode = 500
+        res.end()
+      }
+    })
+    return
+  }
+
+  pipeline(source, res, (error) => {
+    if (error && !res.headersSent) {
+      res.statusCode = 500
+      res.end()
+    }
   })
-  res.end(data)
 }
 
 const server = http.createServer(async (req, res) => {

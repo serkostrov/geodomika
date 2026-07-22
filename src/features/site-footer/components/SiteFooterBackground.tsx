@@ -1,4 +1,4 @@
-import footerBackground from '@/assets/images/site-footer/background-illustration.png'
+import footerBackground from '@/assets/images/site-footer/background-illustration.webp'
 
 export function SiteFooterBackground() {
   return (
@@ -9,7 +9,9 @@ export function SiteFooterBackground() {
       <img
         alt=""
         className="size-full object-cover object-bottom brightness-[3] contrast-125 mix-blend-lighten"
+        decoding="async"
         height={293}
+        loading="lazy"
         src={footerBackground}
         width={1024}
       />

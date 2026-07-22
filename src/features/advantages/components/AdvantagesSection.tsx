@@ -1,4 +1,4 @@
-import sectionBackground from '@/assets/images/advantages/background-vip-obj.png'
+import sectionBackground from '@/assets/images/advantages/background-vip-obj.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import { AdvantagesGrid } from './AdvantagesGrid'
@@ -14,7 +14,9 @@ export function AdvantagesSection() {
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-1/2 w-full -translate-x-1/2 select-none"
+        decoding="async"
         height={1075}
+        loading="lazy"
         src={sectionBackground}
         width={1600}
       />

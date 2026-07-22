@@ -10,16 +10,16 @@ export function HeroContent() {
 
       <div className="shrink-0 grid gap-6 min-[721px]:gap-8">
         <div className="grid gap-4 min-[721px]:gap-6">
-          <p className="type-body text-hero-muted">
-            Производство геодезических куполов
-          </p>
-
-          <h1 className="type-heading type-heading-tight max-w-[760px] uppercase text-white">
-            КУПОЛЬНЫЙ ДОМ ДЛЯ ГЛЭМПИНГА,{' '}
-            <span className="text-accent-2">
-              КОТОРЫЙ СДАЕТСЯ КРУГЛЫЙ ГОД — <br />А НЕ ПОЛСЕЗОНА
-            </span>
+          <h1 className="type-body text-hero-muted">
+            Геодомика - Производство геодезических куполов
           </h1>
+
+          <h2 className="type-heading type-heading-tight max-w-[760px] uppercase text-white">
+            Купольный дом для глэмпинга,{' '}
+            <span className="text-accent-2">
+              который сдается круглый год — <br />а не полсезона
+            </span>
+          </h2>
 
           <p className="type-body max-w-[460px] text-hero-muted">
             <strong className="font-bold text-white">

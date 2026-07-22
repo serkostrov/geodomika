@@ -1,4 +1,4 @@
-import backgroundPattern from '@/assets/images/who-suits/background-pattern.png'
+import backgroundPattern from '@/assets/images/who-suits/background-pattern.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import { WHO_SUITS_INTRO } from '../constants/content'
@@ -17,7 +17,9 @@ export function WhoSuitsSection() {
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-1/2 w-full max-w-[1600px] -translate-x-1/2 select-none"
+        decoding="async"
         height={643}
+        loading="lazy"
         src={backgroundPattern}
         width={1024}
       />

@@ -1,4 +1,4 @@
-import domeStructureImage from '@/assets/images/technology/dome-structure.png'
+import domeStructureImage from '@/assets/images/technology/dome-structure.webp'
 
 const DOME_STRUCTURE_LABELS = [
   {

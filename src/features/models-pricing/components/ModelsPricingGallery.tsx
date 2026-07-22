@@ -138,6 +138,7 @@ export function ModelsPricingGallery() {
               slide.heightClassName,
             )}
             loading="lazy"
+            decoding="async"
             onLoad={syncLoopWidth}
             src={slide.imageSrc}
           />

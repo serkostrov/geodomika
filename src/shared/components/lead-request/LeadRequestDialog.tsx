@@ -69,10 +69,7 @@ export function LeadRequestDialog({
           </span>
         </button>
 
-        <h2
-          className="type-heading type-heading-tight mb-3 pr-10 uppercase text-accent-alt"
-          id={titleId}
-        >
+        <h2 className="type-heading type-heading-tight mb-3 pr-10 uppercase text-accent-alt" id={titleId}>
           {title}
         </h2>
         <p className="type-body mb-6 text-accent-alt/80 min-[481px]:mb-8">{subtitle}</p>

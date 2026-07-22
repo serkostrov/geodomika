@@ -1,4 +1,4 @@
-import testNightBackground from '@/assets/images/test-night/background-test-form.png'
+import testNightBackground from '@/assets/images/test-night/background-test-form.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import { TestNightCard } from './TestNightCard'
@@ -11,7 +11,9 @@ export function TestNightSection() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 size-full object-cover object-center"
+          decoding="async"
           height={900}
+          loading="lazy"
           src={testNightBackground}
           width={1600}
         />

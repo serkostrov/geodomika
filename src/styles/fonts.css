@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'UNCAGE';
-  src: url('../assets/fonts/UNCAGE-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/UNCAGE-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'UNCAGE';
-  src: url('../assets/fonts/UNCAGE-Medium.ttf') format('truetype');
+  src: url('../assets/fonts/UNCAGE-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'UNCAGE';
-  src: url('../assets/fonts/UNCAGE-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/UNCAGE-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: 'UNCAGE';
-  src: url('../assets/fonts/UNCAGE-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/UNCAGE-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

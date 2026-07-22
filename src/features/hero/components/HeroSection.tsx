@@ -1,4 +1,4 @@
-import heroBackground from '@/assets/images/hero-background.png'
+import heroBackground from '@/assets/images/hero-background.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import { HeroContent } from './HeroContent'
@@ -11,7 +11,11 @@ export function HeroSection() {
         alt=""
         aria-hidden="true"
         className="absolute inset-0 size-full object-cover object-[72%_center] min-[721px]:object-center"
+        decoding="async"
+        fetchPriority="high"
+        height={941}
         src={heroBackground}
+        width={1672}
       />
 
       <div aria-hidden="true" className="hero-overlay pointer-events-none absolute inset-0" />

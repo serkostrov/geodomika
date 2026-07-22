@@ -1,4 +1,4 @@
-import authorPhoto from '@/assets/images/domes/andrey_eliseev.png'
+import authorPhoto from '@/assets/images/domes/andrey_eliseev.webp'
 
 import { DOMES_AUTHOR } from '../constants/content'
 

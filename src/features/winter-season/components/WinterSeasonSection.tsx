@@ -1,4 +1,4 @@
-import winterBackground from '@/assets/images/winter-season/background-winter.png'
+import winterBackground from '@/assets/images/winter-season/background-winter.webp'
 import { Container } from '@/shared/components/layout/container'
 
 import { WinterSeasonCard } from './WinterSeasonCard'
@@ -11,7 +11,9 @@ export function WinterSeasonSection() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 size-full object-cover object-[68%_center] min-[861px]:object-[72%_center]"
+          decoding="async"
           height={480}
+          loading="lazy"
           src={winterBackground}
           width={1024}
         />

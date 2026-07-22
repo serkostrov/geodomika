@@ -67,7 +67,7 @@ function getAltFromTheme(theme: Theme) {
 }
 
 const galleryModules = import.meta.glob(
-  '../../../assets/images/models-pricing/gallery/*.{png,jpg,jpeg,webp}',
+  '../../../assets/images/models-pricing/gallery/*.webp',
   {
     eager: true,
     import: 'default',

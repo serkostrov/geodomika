@@ -1,6 +1,6 @@
-import saveTentCoupleImage from '@/assets/images/dome-renovation/save-tent-couple.png'
-import tentCoupleImage from '@/assets/images/dome-renovation/tent-couple.png'
-import woodCoupleImage from '@/assets/images/dome-renovation/wood-couple.png'
+import saveTentCoupleImage from '@/assets/images/dome-renovation/save-tent-couple.webp'
+import tentCoupleImage from '@/assets/images/dome-renovation/tent-couple.webp'
+import woodCoupleImage from '@/assets/images/dome-renovation/wood-couple.webp'
 
 export interface DomeRenovationCardData {
   id: string

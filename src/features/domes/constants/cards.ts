@@ -1,8 +1,8 @@
-import collageAerialImage from '@/assets/images/domes/photo-1.png'
-import collageLakeImage from '@/assets/images/domes/photo-2.png'
-import collageFieldImage from '@/assets/images/domes/photo-3.png'
-import profitabilityIllustration from '@/assets/images/domes/profitability-illustration.png'
-import skyEffectInteriorImage from '@/assets/images/domes/sky-effect-interior.png'
+import collageAerialImage from '@/assets/images/domes/photo-1.webp'
+import collageLakeImage from '@/assets/images/domes/photo-2.webp'
+import collageFieldImage from '@/assets/images/domes/photo-3.webp'
+import profitabilityIllustration from '@/assets/images/domes/profitability-illustration.webp'
+import skyEffectInteriorImage from '@/assets/images/domes/sky-effect-interior.webp'
 
 export const DOMES_LANDSCAPE_COPY = {
   title: 'ВПИШЕТСЯ В ЛЮБОЙ ЛАНДШАФТ',
