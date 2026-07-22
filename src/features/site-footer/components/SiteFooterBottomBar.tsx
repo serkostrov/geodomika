@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 import {
   SITE_FOOTER_COPYRIGHT,
   SITE_FOOTER_CREDITS_HREF,
@@ -7,6 +5,7 @@ import {
 } from '../constants/content'
 
 import { LEGAL_DOCUMENTS } from '@/shared/constants/legal-routes'
+import { LegalDocumentLink } from '@/shared/components/legal/LegalDocumentLink'
 
 export function SiteFooterBottomBar() {
   return (
@@ -20,12 +19,12 @@ export function SiteFooterBottomBar() {
         {LEGAL_DOCUMENTS.map((document, index) => (
           <span key={document.path} className="inline-flex items-center gap-3">
             {index > 0 ? <span aria-hidden="true">·</span> : null}
-            <Link
+            <LegalDocumentLink
               className="transition-colors hover:text-white/80"
               to={document.path}
             >
               {document.shortLabel}
-            </Link>
+            </LegalDocumentLink>
           </span>
         ))}
       </nav>

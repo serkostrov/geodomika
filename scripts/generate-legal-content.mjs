@@ -152,6 +152,8 @@ ${serializeBlocks(blocks).replace(/^      /gm, '  ')}
 
 fs.mkdirSync(outputDir, { recursive: true })
 
+const soglasieTitle = 'Согласие на обработку персональных данных'
+
 const soglasieSections = soglasieSources.map((source) => {
   const raw = extractDocxText(source.docx)
   const blocks = parseLegalText(raw, source.title)
@@ -159,9 +161,18 @@ const soglasieSections = soglasieSources.map((source) => {
   return { title: source.title, blocks }
 })
 
-const soglasieContent = `export const SOGLASIE_LEGAL_SECTIONS = [
+const soglasieContent = `import { flattenLegalSections } from '@/shared/components/legal/legal-document-utils'
+
+export const SOGLASIE_LEGAL_TITLE = ${JSON.stringify(soglasieTitle)} as const
+
+export const SOGLASIE_LEGAL_SECTIONS = [
 ${serializeSections(soglasieSections)}
 ] as const
+
+export const SOGLASIE_LEGAL_BLOCKS = flattenLegalSections(
+  SOGLASIE_LEGAL_TITLE,
+  SOGLASIE_LEGAL_SECTIONS,
+)
 `
 
 fs.writeFileSync(path.join(outputDir, 'soglasie.ts'), soglasieContent, 'utf8')

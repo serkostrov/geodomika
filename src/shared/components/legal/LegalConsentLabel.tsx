@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
-
 import { cn } from '@/shared/lib/cn'
 import {
   LEGAL_ROUTE_OFERTA,
   LEGAL_ROUTE_PRIVACY,
   LEGAL_ROUTE_SOGLASIE,
 } from '@/shared/constants/legal-routes'
+
+import { LegalDocumentLink } from './LegalDocumentLink'
 
 interface LegalConsentLabelProps {
   variant?: 'light' | 'dark'
@@ -20,17 +20,17 @@ export function LegalConsentLabel({ variant = 'light' }: LegalConsentLabelProps)
   return (
     <>
       Принимаю условия{' '}
-      <Link className={linkClassName} to={LEGAL_ROUTE_PRIVACY}>
+      <LegalDocumentLink className={linkClassName} to={LEGAL_ROUTE_PRIVACY}>
         Политики конфиденциальности
-      </Link>
+      </LegalDocumentLink>
       ,{' '}
-      <Link className={linkClassName} to={LEGAL_ROUTE_OFERTA}>
+      <LegalDocumentLink className={linkClassName} to={LEGAL_ROUTE_OFERTA}>
         Публичной оферты
-      </Link>
+      </LegalDocumentLink>
       , а также даю{' '}
-      <Link className={linkClassName} to={LEGAL_ROUTE_SOGLASIE}>
+      <LegalDocumentLink className={linkClassName} to={LEGAL_ROUTE_SOGLASIE}>
         Согласие на обработку персональных данных
-      </Link>
+      </LegalDocumentLink>
     </>
   )
 }

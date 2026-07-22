@@ -1,3 +1,7 @@
+import { flattenLegalSections } from '@/shared/components/legal/legal-document-utils'
+
+export const SOGLASIE_LEGAL_TITLE = 'Согласие на обработку персональных данных' as const
+
 export const SOGLASIE_LEGAL_SECTIONS = [
   {
     title: "Согласие на обработку персональных данных",
@@ -76,3 +80,8 @@ export const SOGLASIE_LEGAL_SECTIONS = [
     ],
   },
 ] as const
+
+export const SOGLASIE_LEGAL_BLOCKS = flattenLegalSections(
+  SOGLASIE_LEGAL_TITLE,
+  SOGLASIE_LEGAL_SECTIONS,
+)
