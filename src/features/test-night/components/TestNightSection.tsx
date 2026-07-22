@@ -29,7 +29,7 @@ export function TestNightSection() {
 
         <div
           aria-hidden="true"
-          className="film-grain pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
+          className="film-grain pointer-events-none absolute inset-0 hidden opacity-[0.12] mix-blend-overlay min-[721px]:block"
         />
 
         <Container className="space-section-y-media relative z-10 flex h-full w-full items-end min-[721px]:items-center">

@@ -62,7 +62,7 @@ export function TestNightForm() {
         {TEST_NIGHT_PHONE_PLACEHOLDER}
       </label>
       <input
-        className="type-input h-12 w-full rounded-[5px] border border-white/30 bg-transparent px-4 text-white placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60"
+        className="type-input h-12 w-full rounded-[5px] border border-white/30 bg-white/10 px-4 text-white backdrop-blur-md placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60 min-[721px]:bg-transparent min-[721px]:backdrop-blur-none"
         disabled={isSubmitting}
         id="test-night-phone"
         name="phone"
