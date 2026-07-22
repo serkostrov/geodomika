@@ -1,0 +1,23 @@
+# Dokploy / Traefik — redirect геодомика.рф → geodomika.ru
+#
+# Важно: в Docker Compose / labels символ $ экранируется как $$,
+# иначе в URL попадёт буквальный "$1" и сайт откроется на /$1.
+#
+# File provider (dynamic config) — без экранирования:
+http:
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+    redirect-geodomika:
+      redirectRegex:
+        regex: "^https?://xn--80afddqmmob\\.xn--p1ai(?:/(.*))?"
+        replacement: "https://geodomika.ru/$1"
+        permanent: true
+
+# Docker labels (Dokploy) — с экранированием $$:
+# traefik.http.middlewares.redirect-geodomika.redirectregex.regex=^https?://xn--80afddqmmob\.xn--p1ai(?:/(.*))?
+# traefik.http.middlewares.redirect-geodomika.redirectregex.replacement=https://geodomika.ru/$$1
+# traefik.http.middlewares.redirect-geodomika.redirectregex.permanent=true

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { AppProviders } from '@/app/providers/AppProviders'
 import { HomePage } from '@/pages/home'
@@ -20,6 +20,7 @@ export default function App() {
           <Route element={<SoglasiePage />} path={LEGAL_ROUTE_SOGLASIE} />
           <Route element={<PrivacyPage />} path={LEGAL_ROUTE_PRIVACY} />
           <Route element={<OfertaPage />} path={LEGAL_ROUTE_OFERTA} />
+          <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </BrowserRouter>
     </AppProviders>
