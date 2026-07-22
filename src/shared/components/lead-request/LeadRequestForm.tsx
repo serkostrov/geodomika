@@ -1,5 +1,7 @@
 import { useId, useState } from 'react'
 
+import { LegalConsentLabel } from '@/shared/components/legal/LegalConsentLabel'
+
 const inputClassName =
   'type-input h-12 w-full rounded-[5px] border border-accent-alt/20 bg-white px-4 text-accent-alt placeholder:text-accent-alt/45 focus:border-accent focus:outline-none'
 
@@ -8,9 +10,6 @@ export interface LeadRequestFormConfig {
   namePlaceholder: string
   phonePlaceholder: string
   messagePlaceholder: string
-  policyTextBefore: string
-  policyLinkText: string
-  policyHref: string
   submitLabel: string
   successTitle: string
   successText: string
@@ -105,10 +104,7 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
           type="checkbox"
         />
         <label className="text-xs! type-helper text-accent-alt/70" htmlFor={policyCheckboxId}>
-          {config.policyTextBefore}
-          <a className="type-link decoration-accent-alt/40" href={config.policyHref}>
-            {config.policyLinkText}
-          </a>
+          <LegalConsentLabel />
         </label>
       </div>
 

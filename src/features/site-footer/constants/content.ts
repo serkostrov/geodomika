@@ -9,9 +9,9 @@ export const SITE_FOOTER_DESCRIPTION =
 export const SITE_FOOTER_LEGAL_LABEL = 'Юр.информация:' as const
 
 export const SITE_FOOTER_LEGAL_LINES = [
-  'ИП Андрей Елесеев',
-  'ОГРН: 6748496040362',
-  'ИНН: 695934728960',
+  'ИП Елесеев Андрей Викторович',
+  'ИНН 645000166462',
+  'ОГРНИП 304645329900124',
 ] as const
 
 export const SITE_FOOTER_CONTACTS_LABEL = 'Контакты' as const
@@ -26,7 +26,5 @@ export const SITE_FOOTER_ADDRESS_LINES = [
 ] as const
 
 export const SITE_FOOTER_COPYRIGHT = '© ГЕОДОМИКА, 2026' as const
-export const SITE_FOOTER_PRIVACY_LABEL = 'Политика обработки персональных данных' as const
-export const SITE_FOOTER_PRIVACY_HREF = '#privacy-policy' as const
 export const SITE_FOOTER_CREDITS_LABEL = 'Разработка сайта 2bstudio.ru' as const
 export const SITE_FOOTER_CREDITS_HREF = 'https://2bstudio.ru/' as const

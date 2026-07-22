@@ -1,4 +1,3 @@
-import cardOneWatermark from '@/assets/images/domes/bg-card1.png'
 import { Container } from '@/shared/components/layout/container'
 
 import { DOMES_COMPACT_CARDS } from '../constants/cards'
@@ -15,15 +14,6 @@ export function DomesSection() {
       className="space-section-y relative overflow-hidden bg-surface text-accent-alt"
       id="domes"
     >
-      <img
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute top-[8%] -left-[4%] w-[min(780px,58%)] max-w-none -scale-x-100 select-none opacity-80 min-[861px]:top-[14%] min-[861px]:w-[46%]"
-        height={640}
-        src={cardOneWatermark}
-        width={1024}
-      />
-
       <Container className="relative z-10 grid gap-10 min-[721px]:gap-12 min-[1200px]:gap-16">
         <DomesQuote />
 

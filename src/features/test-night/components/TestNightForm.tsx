@@ -1,12 +1,10 @@
 import { useId, useState } from 'react'
 
 import arrowRightIcon from '@/assets/icons/hero/arrow-right.svg'
+import { LegalConsentLabel } from '@/shared/components/legal/LegalConsentLabel'
 
 import {
   TEST_NIGHT_PHONE_PLACEHOLDER,
-  TEST_NIGHT_POLICY_HREF,
-  TEST_NIGHT_POLICY_LINK_TEXT,
-  TEST_NIGHT_POLICY_TEXT_BEFORE,
   TEST_NIGHT_SUBMIT_LABEL,
 } from '../constants/content'
 
@@ -50,13 +48,7 @@ export function TestNightForm() {
           className="text-xs! type-helper text-white/70"
           htmlFor={policyCheckboxId}
         >
-          {TEST_NIGHT_POLICY_TEXT_BEFORE}
-          <a
-            className="type-link decoration-white/50"
-            href={TEST_NIGHT_POLICY_HREF}
-          >
-            {TEST_NIGHT_POLICY_LINK_TEXT}
-          </a>
+          <LegalConsentLabel variant="dark" />
         </label>
       </div>
 
