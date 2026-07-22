@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 
+import { submitLead } from '@/shared/api/submit-lead'
 import { LegalConsentLabel } from '@/shared/components/legal/LegalConsentLabel'
 
 const inputClassName =
@@ -17,18 +18,21 @@ export interface LeadRequestFormConfig {
 
 interface LeadRequestFormProps {
   config: LeadRequestFormConfig
+  source: string
   onSuccess?: () => void
 }
 
-export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
+export function LeadRequestForm({ config, source, onSuccess }: LeadRequestFormProps) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const policyCheckboxId = useId()
 
-  const canSubmit = isPolicyAccepted && phone.trim().length > 0
+  const canSubmit = isPolicyAccepted && phone.trim().length > 0 && !isSubmitting
   const nameId = `${config.formIdPrefix}-name`
   const phoneId = `${config.formIdPrefix}-phone`
   const messageId = `${config.formIdPrefix}-message`
@@ -50,8 +54,27 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
       onSubmit={(event) => {
         event.preventDefault()
         if (!canSubmit) return
-        setIsSubmitted(true)
-        onSuccess?.()
+
+        setError(null)
+        setIsSubmitting(true)
+
+        void submitLead({
+          source,
+          name: name.trim(),
+          phone: phone.trim(),
+          message: message.trim(),
+          policyAccepted: isPolicyAccepted,
+        })
+          .then(() => {
+            setIsSubmitted(true)
+            onSuccess?.()
+          })
+          .catch(() => {
+            setError('Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами по телефону.')
+          })
+          .finally(() => {
+            setIsSubmitting(false)
+          })
       }}
     >
       <label className="sr-only" htmlFor={nameId}>
@@ -59,6 +82,7 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
       </label>
       <input
         className={inputClassName}
+        disabled={isSubmitting}
         id={nameId}
         name="name"
         onChange={(event) => setName(event.target.value)}
@@ -72,6 +96,7 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
       </label>
       <input
         className={inputClassName}
+        disabled={isSubmitting}
         id={phoneId}
         name="phone"
         onChange={(event) => setPhone(event.target.value)}
@@ -86,6 +111,7 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
       </label>
       <textarea
         className={`${inputClassName} min-h-[96px] resize-y py-3`}
+        disabled={isSubmitting}
         id={messageId}
         name="message"
         onChange={(event) => setMessage(event.target.value)}
@@ -98,6 +124,7 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
         <input
           checked={isPolicyAccepted}
           className="ui-checkbox ui-checkbox--on-light"
+          disabled={isSubmitting}
           id={policyCheckboxId}
           name="policy"
           onChange={(event) => setIsPolicyAccepted(event.target.checked)}
@@ -108,12 +135,14 @@ export function LeadRequestForm({ config, onSuccess }: LeadRequestFormProps) {
         </label>
       </div>
 
+      {error ? <p className="type-helper text-red-700">{error}</p> : null}
+
       <button
         className="type-button mt-2 inline-flex h-[43px] w-full items-center justify-center rounded-[5px] bg-accent px-6 text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60 min-[481px]:mt-4 min-[481px]:h-[50px]"
         disabled={!canSubmit}
         type="submit"
       >
-        {config.submitLabel}
+        {isSubmitting ? 'Отправляем…' : config.submitLabel}
       </button>
     </form>
   )

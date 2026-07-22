@@ -1,5 +1,5 @@
 # Multi-stage build for Dokploy (Dockerfile build type).
-# Prefer Railpack when ghcr.io is reachable; use this if Railpack cannot pull images.
+# Runtime serves SPA + POST /api/leads (SMTP.BZ) on a single Node process.
 
 FROM node:22-alpine AS build
 WORKDIR /app
@@ -10,9 +10,14 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27-alpine AS runtime
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+FROM node:22-alpine AS runtime
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=80
+
+COPY package.json package-lock.json ./
+COPY server ./server
+COPY --from=build /app/dist ./dist
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server/index.mjs"]
