@@ -16,6 +16,6 @@ export const HERO_FEATURES: HeroFeature[] = [
   {
     iconSrc: starIcon,
     iconAlt: '',
-    lines: ['Проектируем под −40 °C', ""],
+    lines: ['Проектируем под −40\u00A0°C', ''],
   },
 ]

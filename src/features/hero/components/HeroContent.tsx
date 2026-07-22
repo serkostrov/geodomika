@@ -27,7 +27,7 @@ export function HeroContent() {
           </p>
         </div>
 
-        <ul className="flex flex-row gap-4 min-[721px]:gap-10">
+        <ul className="flex w-full flex-row justify-between gap-2 min-[400px]:gap-3 min-[481px]:gap-4 min-[721px]:justify-start min-[721px]:gap-10">
           {HERO_FEATURES.map((feature) => (
             <HeroFeatureItem
               key={feature.lines[0]}
@@ -42,8 +42,12 @@ export function HeroContent() {
               }
             >
               {feature.lines[0]}
-              <br />
-              {feature.lines[1]}
+              {feature.lines[1] ? (
+                <>
+                  <br />
+                  {feature.lines[1]}
+                </>
+              ) : null}
             </HeroFeatureItem>
           ))}
         </ul>
