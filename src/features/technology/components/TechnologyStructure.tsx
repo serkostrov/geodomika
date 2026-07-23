@@ -1,3 +1,4 @@
+import domeStructureMobImage from '@/assets/images/technology/dome-structure-mob.webp'
 import domeStructureImage from '@/assets/images/technology/dome-structure.webp'
 
 const DOME_STRUCTURE_LABELS = [
@@ -47,12 +48,24 @@ export function TechnologyStructure() {
       </h3>
 
       <figure className="m-0">
+        {/* Mobile: complete diagram photo with baked-in labels */}
+        <img
+          alt="Структура обшивки купола: слои панели"
+          className="h-auto w-full max-w-full min-[861px]:hidden"
+          height={356}
+          loading="lazy"
+          src={domeStructureMobImage}
+          width={700}
+        />
+
+        {/* Desktop: clean layers + HTML labels */}
         <div
-          className="relative w-full max-w-full @container"
+          className="relative hidden w-full max-w-full @container min-[861px]:block"
           style={{ aspectRatio: '4174 / 2101' }}
         >
           <img
-            alt="Структура обшивки купола: слои панели"
+            alt=""
+            aria-hidden="true"
             className="absolute inset-0 h-full w-full object-contain"
             height={2101}
             loading="lazy"

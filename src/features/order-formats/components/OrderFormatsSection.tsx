@@ -7,7 +7,6 @@ export function OrderFormatsSection() {
   return (
     <section
       className="space-section-y bg-surface-light text-accent-alt"
-      id="order-formats"
     >
       <Container>
         <OrderFormatsHeader />

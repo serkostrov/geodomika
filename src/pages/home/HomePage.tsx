@@ -92,17 +92,29 @@ export function HomePage() {
   return (
     <main className="w-full max-w-full overflow-x-clip">
       <HeroSection />
-      <LazySection loader={loadTechnology} minHeightClassName="min-h-[70vh]" />
+      <LazySection id="technology" loader={loadTechnology} minHeightClassName="min-h-[70vh]" />
       <LazySection loader={loadGuestExperience} minHeightClassName="min-h-[70vh]" />
-      <LazySection loader={loadDomes} minHeightClassName="min-h-[80vh]" />
-      <LazySection loader={loadAdvantages} minHeightClassName="min-h-[60vh]" />
+      <LazySection id="domes" loader={loadDomes} minHeightClassName="min-h-[80vh]" />
+      <LazySection id="advantages" loader={loadAdvantages} minHeightClassName="min-h-[60vh]" />
       <LazySection loader={loadTestNight} minHeightClassName="min-h-[70vh]" />
-      <LazySection loader={loadWhoSuits} minHeightClassName="min-h-[50vh]" />
-      <LazySection loader={loadModelsPricing} minHeightClassName="min-h-[90vh]" />
-      <LazySection loader={loadOrderFormats} minHeightClassName="min-h-[70vh]" />
+      <LazySection id="who-suits" loader={loadWhoSuits} minHeightClassName="min-h-[50vh]" />
+      <LazySection
+        id="models-pricing"
+        loader={loadModelsPricing}
+        minHeightClassName="min-h-[90vh]"
+      />
+      <LazySection
+        id="order-formats"
+        loader={loadOrderFormats}
+        minHeightClassName="min-h-[70vh]"
+      />
       <LazySection loader={loadWinterSeason} minHeightClassName="min-h-[70vh]" />
-      <LazySection loader={loadDomeRenovation} minHeightClassName="min-h-[70vh]" />
-      <LazySection loader={loadFaq} minHeightClassName="min-h-[40vh]" />
+      <LazySection
+        id="dome-renovation"
+        loader={loadDomeRenovation}
+        minHeightClassName="min-h-[70vh]"
+      />
+      <LazySection id="faq" loader={loadFaq} minHeightClassName="min-h-[40vh]" />
       <LazySection loader={loadFooter} minHeightClassName="min-h-[40vh]" />
     </main>
   )

@@ -8,7 +8,6 @@ export function AdvantagesSection() {
   return (
     <section
       className="space-section-y relative overflow-hidden bg-surface text-accent-alt"
-      id="advantages"
     >
       <img
         alt=""

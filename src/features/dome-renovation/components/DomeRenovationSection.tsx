@@ -7,7 +7,6 @@ export function DomeRenovationSection() {
   return (
     <section
       className="space-section-y bg-surface-warm text-accent-alt"
-      id="dome-renovation"
     >
       <Container className="min-[861px]:px-16">
         <DomeRenovationHeader />

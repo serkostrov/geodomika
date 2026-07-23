@@ -8,7 +8,6 @@ export function FaqSection() {
   return (
     <section
       className="space-section-y bg-surface text-accent-alt"
-      id="faq"
     >
       <Container>
         <FaqHeader />

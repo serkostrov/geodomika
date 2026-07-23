@@ -9,7 +9,6 @@ export function TechnologySection() {
   return (
     <section
       className="space-section-y relative overflow-hidden bg-surface-warm text-accent-alt"
-      id="technology"
     >
       <Container className="relative">
         <header className="space-header">

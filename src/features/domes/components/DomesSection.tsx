@@ -12,7 +12,6 @@ export function DomesSection() {
   return (
     <section
       className="space-section-y relative overflow-hidden bg-surface text-accent-alt"
-      id="domes"
     >
       <Container className="relative z-10 grid gap-10 min-[721px]:gap-12 min-[1200px]:gap-16">
         <DomesQuote />

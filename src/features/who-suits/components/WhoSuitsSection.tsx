@@ -11,7 +11,6 @@ export function WhoSuitsSection() {
   return (
     <section
       className="space-section-y relative overflow-hidden bg-surface text-accent-alt"
-      id="who-suits"
     >
       <img
         alt=""

@@ -17,6 +17,7 @@ import { HeroSocialButton } from './HeroSocialButton'
 
 export function HeroHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [pendingHash, setPendingHash] = useState<string | null>(null)
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -34,7 +35,34 @@ export function HeroHeader() {
     }
   }, [isMenuOpen])
 
+  useEffect(() => {
+    if (isMenuOpen || !pendingHash) return
+
+    const hash = pendingHash
+    setPendingHash(null)
+
+    const go = () => {
+      if (window.location.hash === hash) {
+        window.dispatchEvent(new Event('hashchange'))
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else {
+        window.location.hash = hash
+      }
+    }
+
+    // Wait until body overflow is unlocked after menu close
+    requestAnimationFrame(() => {
+      requestAnimationFrame(go)
+    })
+  }, [isMenuOpen, pendingHash])
+
   const navigationLinks = HERO_NAVIGATION_COLUMNS.flat()
+
+  const handleNavClick = (href: string) => {
+    if (!href.startsWith('#')) return
+    setPendingHash(href)
+    setIsMenuOpen(false)
+  }
 
   return (
     <>
@@ -183,7 +211,11 @@ export function HeroHeader() {
                       <a
                         className="type-subheading uppercase text-hero-muted transition-colors hover:text-white"
                         href={link.href}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={(event) => {
+                          if (!link.href.startsWith('#')) return
+                          event.preventDefault()
+                          handleNavClick(link.href)
+                        }}
                       >
                         {link.label}
                       </a>
