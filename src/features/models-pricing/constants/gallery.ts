@@ -74,73 +74,99 @@ const galleryModules = import.meta.glob(
   },
 ) as Record<string, string>
 
-function isTechnicalTheme(theme: Theme): boolean {
-  return theme === 'construction' || theme === 'detail' || theme === 'transport'
-}
+/** Порядок тем по кругу — соседние кадры всегда разных тем, пока это возможно. */
+const THEME_CYCLE: Theme[] = [
+  'construction',
+  'detail',
+  'exterior',
+  'interior',
+  'winter',
+  'transport',
+]
 
-/** Чередует пейзажи и технические кадры; два technical подряд не ставит, если хватает пейзажей.
- * Порядок внутри групп стабильный (по имени файла) — не перемешивается при перезагрузке.
+/**
+ * Берёт по одному кадру из каждой темы по кругу (конструкция → детали → экстерьер → …).
+ * Одинаковые темы не ставятся подряд, если есть альтернатива. Порядок стабильный.
  */
 export function orderModelsPricingGallerySlides(
   slides: ModelsPricingGallerySlide[],
 ): ModelsPricingGallerySlide[] {
-  const landscape = slides.filter((slide) => !isTechnicalTheme(slide.theme))
-  const technical = slides.filter((slide) => isTechnicalTheme(slide.theme))
-  const result: ModelsPricingGallerySlide[] = []
-  let landscapeIndex = 0
-  let technicalIndex = 0
-  let pickLandscape = true
+  const queues = new Map<Theme, ModelsPricingGallerySlide[]>()
 
-  while (landscapeIndex < landscape.length || technicalIndex < technical.length) {
-    const lastIsTechnical =
-      result.length > 0 &&
-      isTechnicalTheme(result[result.length - 1].theme)
+  for (const theme of THEME_CYCLE) {
+    queues.set(theme, [])
+  }
 
-    if (lastIsTechnical) {
-      if (landscapeIndex < landscape.length) {
-        result.push(landscape[landscapeIndex])
-        landscapeIndex += 1
-        pickLandscape = false
-      } else if (technicalIndex < technical.length) {
-        result.push(technical[technicalIndex])
-        technicalIndex += 1
-      }
-      continue
-    }
-
-    if (pickLandscape && landscapeIndex < landscape.length) {
-      result.push(landscape[landscapeIndex])
-      landscapeIndex += 1
-      pickLandscape = false
-    } else if (technicalIndex < technical.length) {
-      result.push(technical[technicalIndex])
-      technicalIndex += 1
-      pickLandscape = true
-    } else if (landscapeIndex < landscape.length) {
-      result.push(landscape[landscapeIndex])
-      landscapeIndex += 1
-      pickLandscape = false
+  for (const slide of slides) {
+    const queue = queues.get(slide.theme)
+    if (queue) {
+      queue.push(slide)
+    } else {
+      queues.set(slide.theme, [slide])
     }
   }
 
-  if (result.length > 1) {
-    const first = result[0]
-    const last = result[result.length - 1]
-    if (
-      isTechnicalTheme(first.theme) &&
-      isTechnicalTheme(last.theme)
-    ) {
-      const swapIndex = result.findIndex(
-        (slide, index) =>
-          index > 0 &&
-          index < result.length - 1 &&
-          !isTechnicalTheme(slide.theme),
-      )
+  const remaining = () =>
+    THEME_CYCLE.reduce((sum, theme) => sum + (queues.get(theme)?.length ?? 0), 0)
+
+  const result: ModelsPricingGallerySlide[] = []
+  let cycleIndex = 0
+
+  while (remaining() > 0) {
+    const lastTheme = result.at(-1)?.theme
+    let picked: ModelsPricingGallerySlide | undefined
+
+    for (let offset = 0; offset < THEME_CYCLE.length; offset += 1) {
+      const theme = THEME_CYCLE[(cycleIndex + offset) % THEME_CYCLE.length]
+      const queue = queues.get(theme)
+      if (!queue || queue.length === 0) continue
+      if (theme === lastTheme) continue
+
+      picked = queue.shift()
+      cycleIndex = (cycleIndex + offset + 1) % THEME_CYCLE.length
+      break
+    }
+
+    // Если остались только кадры той же темы — ставим их подряд
+    if (!picked) {
+      for (const theme of THEME_CYCLE) {
+        const queue = queues.get(theme)
+        if (queue && queue.length > 0) {
+          picked = queue.shift()
+          cycleIndex = (THEME_CYCLE.indexOf(theme) + 1) % THEME_CYCLE.length
+          break
+        }
+      }
+    }
+
+    if (picked) {
+      result.push(picked)
+    } else {
+      break
+    }
+  }
+
+  // Чтобы в бесконечном лупе слайдера стык не давал две одинаковые темы подряд
+  if (result.length > 2) {
+    const firstTheme = result[0].theme
+    const lastIndex = result.length - 1
+
+    if (result[lastIndex].theme === firstTheme) {
+      let swapIndex = -1
+
+      for (let index = lastIndex - 1; index > 0; index -= 1) {
+        const slide = result[index]
+        if (slide.theme === firstTheme) continue
+        if (result[index - 1]?.theme === firstTheme) continue
+        if (result[index + 1]?.theme === result[lastIndex].theme) continue
+        swapIndex = index
+        break
+      }
 
       if (swapIndex !== -1) {
-        const landscapeSlide = result[swapIndex]
-        result[swapIndex] = last
-        result[result.length - 1] = landscapeSlide
+        const temp = result[swapIndex]
+        result[swapIndex] = result[lastIndex]
+        result[lastIndex] = temp
       }
     }
   }
