@@ -10,7 +10,7 @@ export const HERO_NAVIGATION_COLUMNS: HeroNavLink[][] = [
     { label: 'купола Геодомика', href: '#domes' },
   ],
   [
-    { label: 'факты', href: '#faq' },
+    { label: 'факты', href: '#facts' },
     { label: 'для кого', href: '#who-suits' },
     { label: 'модели и цены', href: '#models-pricing' },
   ],

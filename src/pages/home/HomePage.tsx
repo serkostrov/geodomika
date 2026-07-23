@@ -93,7 +93,7 @@ export function HomePage() {
     <main className="w-full max-w-full overflow-x-clip">
       <HeroSection />
       <LazySection id="technology" loader={loadTechnology} minHeightClassName="min-h-[70vh]" />
-      <LazySection loader={loadGuestExperience} minHeightClassName="min-h-[70vh]" />
+      <LazySection id="facts" loader={loadGuestExperience} minHeightClassName="min-h-[70vh]" />
       <LazySection id="domes" loader={loadDomes} minHeightClassName="min-h-[80vh]" />
       <LazySection id="advantages" loader={loadAdvantages} minHeightClassName="min-h-[60vh]" />
       <LazySection loader={loadTestNight} minHeightClassName="min-h-[70vh]" />
