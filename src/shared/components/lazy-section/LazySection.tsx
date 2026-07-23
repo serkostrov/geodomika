@@ -7,6 +7,8 @@ import {
   useState,
 } from 'react'
 
+import { registerSectionLoader } from '@/shared/lib/section-scroll'
+
 interface LazySectionProps {
   id?: string
   loader: () => Promise<{ default: ComponentType }>
@@ -15,6 +17,8 @@ interface LazySectionProps {
   rootMargin?: string
   fallback?: ReactNode
 }
+
+let anonymousLoaderKey = 0
 
 export function LazySection({
   id,
@@ -26,21 +30,44 @@ export function LazySection({
   const hostRef = useRef<HTMLDivElement>(null)
   const [Section, setSection] = useState<ComponentType | null>(null)
   const [failed, setFailed] = useState(false)
-  const loadStartedRef = useRef(false)
+  const sectionRef = useRef<ComponentType | null>(null)
+  const loadPromiseRef = useRef<Promise<void> | null>(null)
+  const resolveLoadRef = useRef<(() => void) | null>(null)
+  const registryKeyRef = useRef(id ?? `__lazy-${String((anonymousLoaderKey += 1))}`)
 
-  const load = useCallback(() => {
-    if (loadStartedRef.current) return
-    loadStartedRef.current = true
+  sectionRef.current = Section
 
-    void loader()
-      .then((module) => {
-        setSection(() => module.default)
-      })
-      .catch(() => {
-        loadStartedRef.current = false
-        setFailed(true)
-      })
+  const ensureLoaded = useCallback((): Promise<void> => {
+    if (sectionRef.current) return Promise.resolve()
+    if (loadPromiseRef.current) return loadPromiseRef.current
+
+    loadPromiseRef.current = new Promise<void>((resolve, reject) => {
+      resolveLoadRef.current = resolve
+
+      void loader()
+        .then((module) => {
+          setSection(() => module.default)
+        })
+        .catch((error: unknown) => {
+          loadPromiseRef.current = null
+          resolveLoadRef.current = null
+          setFailed(true)
+          reject(error)
+        })
+    })
+
+    return loadPromiseRef.current
   }, [loader])
+
+  useEffect(() => {
+    if (!Section) return
+    resolveLoadRef.current?.()
+    resolveLoadRef.current = null
+  }, [Section])
+
+  useEffect(() => {
+    return registerSectionLoader(registryKeyRef.current, ensureLoaded)
+  }, [ensureLoaded])
 
   useEffect(() => {
     const host = hostRef.current
@@ -50,7 +77,7 @@ export function LazySection({
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return
         observer.disconnect()
-        load()
+        void ensureLoaded()
       },
       { rootMargin },
     )
@@ -60,32 +87,7 @@ export function LazySection({
     return () => {
       observer.disconnect()
     }
-  }, [load, rootMargin])
-
-  useEffect(() => {
-    if (!id) return
-
-    const syncFromHash = () => {
-      if (window.location.hash === `#${id}`) {
-        load()
-      }
-    }
-
-    syncFromHash()
-    window.addEventListener('hashchange', syncFromHash)
-    return () => window.removeEventListener('hashchange', syncFromHash)
-  }, [id, load])
-
-  useEffect(() => {
-    if (!Section || !id) return
-    if (window.location.hash !== `#${id}`) return
-
-    const frame = requestAnimationFrame(() => {
-      hostRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    })
-
-    return () => cancelAnimationFrame(frame)
-  }, [Section, id])
+  }, [ensureLoaded, rootMargin])
 
   return (
     <div id={id} ref={hostRef}>

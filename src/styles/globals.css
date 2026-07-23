@@ -100,7 +100,8 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* Smooth scroll handled in navigateToSection after lazy sections load */
+    scroll-behavior: auto;
     overflow-x: clip;
     width: 100%;
   }
@@ -121,7 +122,8 @@
     }
   }
 
-  section[id] {
+  section[id],
+  main > div[id] {
     scroll-margin-top: 1rem;
   }
 

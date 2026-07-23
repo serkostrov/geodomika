@@ -1,7 +1,11 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import { HeroSection } from '@/features/hero'
 import { LazySection } from '@/shared/components/lazy-section'
+import {
+  isRegisteredSection,
+  navigateToSection,
+} from '@/shared/lib/section-scroll'
 
 export function HomePage() {
   const loadTechnology = useCallback(
@@ -88,6 +92,19 @@ export function HomePage() {
       })),
     [],
   )
+
+  useEffect(() => {
+    const syncHash = () => {
+      const { hash } = window.location
+      if (isRegisteredSection(hash)) {
+        void navigateToSection(hash)
+      }
+    }
+
+    syncHash()
+    window.addEventListener('hashchange', syncHash)
+    return () => window.removeEventListener('hashchange', syncHash)
+  }, [])
 
   return (
     <main className="w-full max-w-full overflow-x-clip">

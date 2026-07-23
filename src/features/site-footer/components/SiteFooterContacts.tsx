@@ -7,6 +7,7 @@ import {
 import { SITE_FOOTER_NAV_LINKS } from '../constants/navigation'
 import { SITE_FOOTER_SOCIAL_LINKS } from '../constants/social-links'
 import { CONTACT_PHONES } from '@/shared/constants/contacts'
+import { handleSectionLinkClick } from '@/shared/lib/section-scroll'
 
 import { SiteFooterSocialButton } from './SiteFooterSocialButton'
 
@@ -59,6 +60,7 @@ export function SiteFooterContacts() {
                 <a
                   className="type-body text-white transition-colors hover:text-white/80"
                   href={link.href}
+                  onClick={handleSectionLinkClick}
                 >
                   {link.label}
                 </a>
