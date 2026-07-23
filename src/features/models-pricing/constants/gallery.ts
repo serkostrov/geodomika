@@ -74,19 +74,29 @@ const galleryModules = import.meta.glob(
   },
 ) as Record<string, string>
 
-/** Порядок тем по кругу — соседние кадры всегда разных тем, пока это возможно. */
+/** Порядок тем по кругу. detail не сразу после construction. */
 const THEME_CYCLE: Theme[] = [
-  'construction',
-  'detail',
   'exterior',
+  'construction',
   'interior',
+  'detail',
   'winter',
   'transport',
 ]
 
+const START_SLIDE_ID = 'exterior-02'
+
+function isForbiddenThemePair(previous: Theme | undefined, next: Theme): boolean {
+  if (!previous) return false
+  if (previous === next) return true
+  // Деталь не ставим сразу после конструкции
+  if (previous === 'construction' && next === 'detail') return true
+  return false
+}
+
 /**
- * Берёт по одному кадру из каждой темы по кругу (конструкция → детали → экстерьер → …).
- * Одинаковые темы не ставятся подряд, если есть альтернатива. Порядок стабильный.
+ * Стартует с exterior-02, дальше темы по кругу.
+ * Одинаковые темы и пара construction→detail не ставятся подряд, если есть альтернатива.
  */
 export function orderModelsPricingGallerySlides(
   slides: ModelsPricingGallerySlide[],
@@ -97,7 +107,14 @@ export function orderModelsPricingGallerySlides(
     queues.set(theme, [])
   }
 
+  let startSlide: ModelsPricingGallerySlide | undefined
+
   for (const slide of slides) {
+    if (slide.id === START_SLIDE_ID) {
+      startSlide = slide
+      continue
+    }
+
     const queue = queues.get(slide.theme)
     if (queue) {
       queue.push(slide)
@@ -110,7 +127,13 @@ export function orderModelsPricingGallerySlides(
     THEME_CYCLE.reduce((sum, theme) => sum + (queues.get(theme)?.length ?? 0), 0)
 
   const result: ModelsPricingGallerySlide[] = []
-  let cycleIndex = 0
+
+  if (startSlide) {
+    result.push(startSlide)
+  }
+
+  // После экстерьера продолжаем цикл со следующей темы
+  let cycleIndex = (THEME_CYCLE.indexOf('exterior') + 1) % THEME_CYCLE.length
 
   while (remaining() > 0) {
     const lastTheme = result.at(-1)?.theme
@@ -120,14 +143,14 @@ export function orderModelsPricingGallerySlides(
       const theme = THEME_CYCLE[(cycleIndex + offset) % THEME_CYCLE.length]
       const queue = queues.get(theme)
       if (!queue || queue.length === 0) continue
-      if (theme === lastTheme) continue
+      if (isForbiddenThemePair(lastTheme, theme)) continue
 
       picked = queue.shift()
       cycleIndex = (cycleIndex + offset + 1) % THEME_CYCLE.length
       break
     }
 
-    // Если остались только кадры той же темы — ставим их подряд
+    // Если остались только «запрещённые» варианты — берём любой оставшийся
     if (!picked) {
       for (const theme of THEME_CYCLE) {
         const queue = queues.get(theme)
@@ -146,19 +169,23 @@ export function orderModelsPricingGallerySlides(
     }
   }
 
-  // Чтобы в бесконечном лупе слайдера стык не давал две одинаковые темы подряд
+  // Чтобы в бесконечном лупе стык не давал запрещённую пару / одну тему подряд
   if (result.length > 2) {
     const firstTheme = result[0].theme
     const lastIndex = result.length - 1
 
-    if (result[lastIndex].theme === firstTheme) {
+    if (isForbiddenThemePair(result[lastIndex].theme, firstTheme)) {
       let swapIndex = -1
 
       for (let index = lastIndex - 1; index > 0; index -= 1) {
-        const slide = result[index]
-        if (slide.theme === firstTheme) continue
-        if (result[index - 1]?.theme === firstTheme) continue
-        if (result[index + 1]?.theme === result[lastIndex].theme) continue
+        const candidate = result[index]
+        if (isForbiddenThemePair(candidate.theme, firstTheme)) continue
+        if (isForbiddenThemePair(result[index - 1]?.theme, result[lastIndex].theme)) {
+          continue
+        }
+        if (isForbiddenThemePair(result[lastIndex].theme, result[index + 1]?.theme ?? firstTheme)) {
+          continue
+        }
         swapIndex = index
         break
       }
