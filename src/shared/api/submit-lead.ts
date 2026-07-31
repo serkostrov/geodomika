@@ -1,3 +1,5 @@
+import { trackLeadSubmitSuccess } from '@/shared/lib/yandex-metrika'
+
 export interface SubmitLeadPayload {
   source: string
   name?: string
@@ -23,7 +25,11 @@ export async function submitLead(payload: SubmitLeadPayload) {
     data = null
   }
 
-  if (!response.ok || !data?.ok) {
-    throw new Error(data?.error || 'Не удалось отправить заявку')
+  // Цель Метрики — только при реальном успехе (HTTP 200 и ok от API)
+  if (response.status === 200 && data?.ok) {
+    trackLeadSubmitSuccess()
+    return
   }
+
+  throw new Error(data?.error || 'Не удалось отправить заявку')
 }
