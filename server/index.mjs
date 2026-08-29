@@ -267,6 +267,25 @@ function resolveStaticPath(urlPath) {
   return filePath
 }
 
+function resolveExistingFile(filePath) {
+  if (fs.existsSync(filePath)) {
+    const stat = fs.statSync(filePath)
+    if (stat.isFile()) return filePath
+    if (stat.isDirectory()) {
+      const nestedIndex = path.join(filePath, 'index.html')
+      if (fs.existsSync(nestedIndex)) return nestedIndex
+    }
+  }
+
+  const htmlPath = `${filePath}.html`
+  if (fs.existsSync(htmlPath)) return htmlPath
+
+  const nestedIndex = path.join(filePath, 'index.html')
+  if (fs.existsSync(nestedIndex)) return nestedIndex
+
+  return null
+}
+
 function acceptsGzip(req) {
   const encoding = req.headers['accept-encoding']
   return typeof encoding === 'string' && encoding.toLowerCase().includes('gzip')
@@ -279,9 +298,8 @@ function serveStatic(req, res) {
     return
   }
 
-  const candidate = fs.existsSync(filePath) && fs.statSync(filePath).isFile()
-    ? filePath
-    : path.join(DIST_DIR, 'index.html')
+  const candidate =
+    resolveExistingFile(filePath) ?? path.join(DIST_DIR, 'index.html')
 
   if (!fs.existsSync(candidate)) {
     sendJson(res, 404, { ok: false, error: 'Not found' })

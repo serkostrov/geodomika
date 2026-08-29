@@ -1,103 +1,75 @@
-import { useCallback, useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 
 import { HeroSection } from '@/features/hero'
 import { LazySection } from '@/shared/components/lazy-section'
-import {
-  isRegisteredSection,
-  navigateToSection,
-} from '@/shared/lib/section-scroll'
+import { navigateToSection } from '@/shared/lib/section-scroll'
+
+const TechnologySection = lazy(() =>
+  import('@/features/technology').then((module) => ({
+    default: module.TechnologySection,
+  })),
+)
+const GuestExperienceSection = lazy(() =>
+  import('@/features/guest-experience').then((module) => ({
+    default: module.GuestExperienceSection,
+  })),
+)
+const DomesSection = lazy(() =>
+  import('@/features/domes').then((module) => ({
+    default: module.DomesSection,
+  })),
+)
+const AdvantagesSection = lazy(() =>
+  import('@/features/advantages').then((module) => ({
+    default: module.AdvantagesSection,
+  })),
+)
+const TestNightSection = lazy(() =>
+  import('@/features/test-night').then((module) => ({
+    default: module.TestNightSection,
+  })),
+)
+const WhoSuitsSection = lazy(() =>
+  import('@/features/who-suits').then((module) => ({
+    default: module.WhoSuitsSection,
+  })),
+)
+const ModelsPricingSection = lazy(() =>
+  import('@/features/models-pricing').then((module) => ({
+    default: module.ModelsPricingSection,
+  })),
+)
+const OrderFormatsSection = lazy(() =>
+  import('@/features/order-formats').then((module) => ({
+    default: module.OrderFormatsSection,
+  })),
+)
+const WinterSeasonSection = lazy(() =>
+  import('@/features/winter-season').then((module) => ({
+    default: module.WinterSeasonSection,
+  })),
+)
+const DomeRenovationSection = lazy(() =>
+  import('@/features/dome-renovation').then((module) => ({
+    default: module.DomeRenovationSection,
+  })),
+)
+const FaqSection = lazy(() =>
+  import('@/features/faq').then((module) => ({
+    default: module.FaqSection,
+  })),
+)
+const SiteFooterSection = lazy(() =>
+  import('@/features/site-footer').then((module) => ({
+    default: module.SiteFooterSection,
+  })),
+)
 
 export function HomePage() {
-  const loadTechnology = useCallback(
-    () =>
-      import('@/features/technology').then((module) => ({
-        default: module.TechnologySection,
-      })),
-    [],
-  )
-  const loadGuestExperience = useCallback(
-    () =>
-      import('@/features/guest-experience').then((module) => ({
-        default: module.GuestExperienceSection,
-      })),
-    [],
-  )
-  const loadDomes = useCallback(
-    () =>
-      import('@/features/domes').then((module) => ({
-        default: module.DomesSection,
-      })),
-    [],
-  )
-  const loadAdvantages = useCallback(
-    () =>
-      import('@/features/advantages').then((module) => ({
-        default: module.AdvantagesSection,
-      })),
-    [],
-  )
-  const loadTestNight = useCallback(
-    () =>
-      import('@/features/test-night').then((module) => ({
-        default: module.TestNightSection,
-      })),
-    [],
-  )
-  const loadWhoSuits = useCallback(
-    () =>
-      import('@/features/who-suits').then((module) => ({
-        default: module.WhoSuitsSection,
-      })),
-    [],
-  )
-  const loadModelsPricing = useCallback(
-    () =>
-      import('@/features/models-pricing').then((module) => ({
-        default: module.ModelsPricingSection,
-      })),
-    [],
-  )
-  const loadOrderFormats = useCallback(
-    () =>
-      import('@/features/order-formats').then((module) => ({
-        default: module.OrderFormatsSection,
-      })),
-    [],
-  )
-  const loadWinterSeason = useCallback(
-    () =>
-      import('@/features/winter-season').then((module) => ({
-        default: module.WinterSeasonSection,
-      })),
-    [],
-  )
-  const loadDomeRenovation = useCallback(
-    () =>
-      import('@/features/dome-renovation').then((module) => ({
-        default: module.DomeRenovationSection,
-      })),
-    [],
-  )
-  const loadFaq = useCallback(
-    () =>
-      import('@/features/faq').then((module) => ({
-        default: module.FaqSection,
-      })),
-    [],
-  )
-  const loadFooter = useCallback(
-    () =>
-      import('@/features/site-footer').then((module) => ({
-        default: module.SiteFooterSection,
-      })),
-    [],
-  )
-
   useEffect(() => {
     const syncHash = () => {
-      const { hash } = window.location
-      if (isRegisteredSection(hash)) {
-        void navigateToSection(hash)
+      if (window.location.hash) {
+        void navigateToSection(window.location.hash)
       }
     }
 
@@ -109,30 +81,42 @@ export function HomePage() {
   return (
     <main className="w-full max-w-full overflow-x-clip">
       <HeroSection />
-      <LazySection id="technology" loader={loadTechnology} minHeightClassName="min-h-[70vh]" />
-      <LazySection id="facts" loader={loadGuestExperience} minHeightClassName="min-h-[70vh]" />
-      <LazySection id="domes" loader={loadDomes} minHeightClassName="min-h-[80vh]" />
-      <LazySection id="advantages" loader={loadAdvantages} minHeightClassName="min-h-[60vh]" />
-      <LazySection loader={loadTestNight} minHeightClassName="min-h-[70vh]" />
-      <LazySection id="who-suits" loader={loadWhoSuits} minHeightClassName="min-h-[50vh]" />
-      <LazySection
-        id="models-pricing"
-        loader={loadModelsPricing}
-        minHeightClassName="min-h-[90vh]"
-      />
-      <LazySection
-        id="order-formats"
-        loader={loadOrderFormats}
-        minHeightClassName="min-h-[70vh]"
-      />
-      <LazySection loader={loadWinterSeason} minHeightClassName="min-h-[70vh]" />
-      <LazySection
-        id="dome-renovation"
-        loader={loadDomeRenovation}
-        minHeightClassName="min-h-[70vh]"
-      />
-      <LazySection id="faq" loader={loadFaq} minHeightClassName="min-h-[40vh]" />
-      <LazySection loader={loadFooter} minHeightClassName="min-h-[40vh]" />
+      <LazySection id="technology" minHeightClassName="min-h-[70vh]">
+        <TechnologySection />
+      </LazySection>
+      <LazySection id="facts" minHeightClassName="min-h-[70vh]">
+        <GuestExperienceSection />
+      </LazySection>
+      <LazySection id="domes" minHeightClassName="min-h-[80vh]">
+        <DomesSection />
+      </LazySection>
+      <LazySection id="advantages" minHeightClassName="min-h-[60vh]">
+        <AdvantagesSection />
+      </LazySection>
+      <LazySection minHeightClassName="min-h-[70vh]">
+        <TestNightSection />
+      </LazySection>
+      <LazySection id="who-suits" minHeightClassName="min-h-[50vh]">
+        <WhoSuitsSection />
+      </LazySection>
+      <LazySection id="models-pricing" minHeightClassName="min-h-[90vh]">
+        <ModelsPricingSection />
+      </LazySection>
+      <LazySection id="order-formats" minHeightClassName="min-h-[70vh]">
+        <OrderFormatsSection />
+      </LazySection>
+      <LazySection minHeightClassName="min-h-[70vh]">
+        <WinterSeasonSection />
+      </LazySection>
+      <LazySection id="dome-renovation" minHeightClassName="min-h-[70vh]">
+        <DomeRenovationSection />
+      </LazySection>
+      <LazySection id="faq" minHeightClassName="min-h-[40vh]">
+        <FaqSection />
+      </LazySection>
+      <LazySection minHeightClassName="min-h-[40vh]">
+        <SiteFooterSection />
+      </LazySection>
     </main>
   )
 }

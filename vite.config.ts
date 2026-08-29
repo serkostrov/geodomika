@@ -31,8 +31,8 @@ function preloadHeroImage(): Plugin {
   }
 }
 
-export default defineConfig({
-  plugins: [react(), tailwindcss(), preloadHeroImage()],
+export default defineConfig(({ isSsrBuild }) => ({
+  plugins: isSsrBuild ? [react()] : [react(), tailwindcss(), preloadHeroImage()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -40,23 +40,35 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
-    cssCodeSplit: true,
-    modulePreload: {
-      polyfill: false,
-    },
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (
-            id.includes('node_modules/react-dom') ||
-            id.includes('node_modules/react-router') ||
-            id.includes('node_modules/react/')
-          ) {
-            return 'react-vendor'
-          }
+    outDir: isSsrBuild ? 'dist/server' : 'dist',
+    emptyOutDir: true,
+    copyPublicDir: !isSsrBuild,
+    cssCodeSplit: !isSsrBuild,
+    modulePreload: isSsrBuild
+      ? false
+      : {
+          polyfill: false,
         },
-      },
-    },
+    rollupOptions: isSsrBuild
+      ? {
+          input: path.resolve(__dirname, 'src/entry-server.tsx'),
+        }
+      : {
+          output: {
+            manualChunks(id) {
+              if (
+                id.includes('node_modules/react-dom') ||
+                id.includes('node_modules/react-router') ||
+                id.includes('node_modules/react/')
+              ) {
+                return 'react-vendor'
+              }
+            },
+          },
+        },
+  },
+  ssr: {
+    noExternal: true,
   },
   server: {
     proxy: {
@@ -66,4 +78,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

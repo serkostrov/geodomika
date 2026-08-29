@@ -35,14 +35,6 @@
         trackLinks: true,
       })
     </script>
-    <noscript
-      ><div>
-        <img
-          src="https://mc.yandex.ru/watch/111184916"
-          style="position: absolute; left: -9999px"
-          alt=""
-        /></div
-    ></noscript>
     <!-- /Yandex.Metrika counter -->
 
     <link rel="icon" type="image/webp" href="/favicon.webp" />
@@ -102,7 +94,16 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <noscript>
+      <div>
+        <img
+          src="https://mc.yandex.ru/watch/111184916"
+          style="position: absolute; left: -9999px"
+          alt=""
+        />
+      </div>
+    </noscript>
+    <div id="root"><!--ssr-outlet--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
