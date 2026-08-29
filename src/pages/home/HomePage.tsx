@@ -1,69 +1,19 @@
-import { lazy, useEffect } from 'react'
+import { useEffect } from 'react'
 
+import { AdvantagesSection } from '@/features/advantages'
+import { DomeRenovationSection } from '@/features/dome-renovation'
+import { DomesSection } from '@/features/domes'
+import { FaqSection } from '@/features/faq'
+import { GuestExperienceSection } from '@/features/guest-experience'
 import { HeroSection } from '@/features/hero'
-import { LazySection } from '@/shared/components/lazy-section'
+import { ModelsPricingSection } from '@/features/models-pricing'
+import { OrderFormatsSection } from '@/features/order-formats'
+import { SiteFooterSection } from '@/features/site-footer'
+import { TechnologySection } from '@/features/technology'
+import { TestNightSection } from '@/features/test-night'
+import { WhoSuitsSection } from '@/features/who-suits'
+import { WinterSeasonSection } from '@/features/winter-season'
 import { navigateToSection } from '@/shared/lib/section-scroll'
-
-const TechnologySection = lazy(() =>
-  import('@/features/technology').then((module) => ({
-    default: module.TechnologySection,
-  })),
-)
-const GuestExperienceSection = lazy(() =>
-  import('@/features/guest-experience').then((module) => ({
-    default: module.GuestExperienceSection,
-  })),
-)
-const DomesSection = lazy(() =>
-  import('@/features/domes').then((module) => ({
-    default: module.DomesSection,
-  })),
-)
-const AdvantagesSection = lazy(() =>
-  import('@/features/advantages').then((module) => ({
-    default: module.AdvantagesSection,
-  })),
-)
-const TestNightSection = lazy(() =>
-  import('@/features/test-night').then((module) => ({
-    default: module.TestNightSection,
-  })),
-)
-const WhoSuitsSection = lazy(() =>
-  import('@/features/who-suits').then((module) => ({
-    default: module.WhoSuitsSection,
-  })),
-)
-const ModelsPricingSection = lazy(() =>
-  import('@/features/models-pricing').then((module) => ({
-    default: module.ModelsPricingSection,
-  })),
-)
-const OrderFormatsSection = lazy(() =>
-  import('@/features/order-formats').then((module) => ({
-    default: module.OrderFormatsSection,
-  })),
-)
-const WinterSeasonSection = lazy(() =>
-  import('@/features/winter-season').then((module) => ({
-    default: module.WinterSeasonSection,
-  })),
-)
-const DomeRenovationSection = lazy(() =>
-  import('@/features/dome-renovation').then((module) => ({
-    default: module.DomeRenovationSection,
-  })),
-)
-const FaqSection = lazy(() =>
-  import('@/features/faq').then((module) => ({
-    default: module.FaqSection,
-  })),
-)
-const SiteFooterSection = lazy(() =>
-  import('@/features/site-footer').then((module) => ({
-    default: module.SiteFooterSection,
-  })),
-)
 
 export function HomePage() {
   useEffect(() => {
@@ -81,42 +31,36 @@ export function HomePage() {
   return (
     <main className="w-full max-w-full overflow-x-clip">
       <HeroSection />
-      <LazySection id="technology" minHeightClassName="min-h-[70vh]">
+      <div id="technology">
         <TechnologySection />
-      </LazySection>
-      <LazySection id="facts" minHeightClassName="min-h-[70vh]">
+      </div>
+      <div id="facts">
         <GuestExperienceSection />
-      </LazySection>
-      <LazySection id="domes" minHeightClassName="min-h-[80vh]">
+      </div>
+      <div id="domes">
         <DomesSection />
-      </LazySection>
-      <LazySection id="advantages" minHeightClassName="min-h-[60vh]">
+      </div>
+      <div id="advantages">
         <AdvantagesSection />
-      </LazySection>
-      <LazySection minHeightClassName="min-h-[70vh]">
-        <TestNightSection />
-      </LazySection>
-      <LazySection id="who-suits" minHeightClassName="min-h-[50vh]">
+      </div>
+      <TestNightSection />
+      <div id="who-suits">
         <WhoSuitsSection />
-      </LazySection>
-      <LazySection id="models-pricing" minHeightClassName="min-h-[90vh]">
+      </div>
+      <div id="models-pricing">
         <ModelsPricingSection />
-      </LazySection>
-      <LazySection id="order-formats" minHeightClassName="min-h-[70vh]">
+      </div>
+      <div id="order-formats">
         <OrderFormatsSection />
-      </LazySection>
-      <LazySection minHeightClassName="min-h-[70vh]">
-        <WinterSeasonSection />
-      </LazySection>
-      <LazySection id="dome-renovation" minHeightClassName="min-h-[70vh]">
+      </div>
+      <WinterSeasonSection />
+      <div id="dome-renovation">
         <DomeRenovationSection />
-      </LazySection>
-      <LazySection id="faq" minHeightClassName="min-h-[40vh]">
+      </div>
+      <div id="faq">
         <FaqSection />
-      </LazySection>
-      <LazySection minHeightClassName="min-h-[40vh]">
-        <SiteFooterSection />
-      </LazySection>
+      </div>
+      <SiteFooterSection />
     </main>
   )
 }
