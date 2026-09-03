@@ -5,6 +5,8 @@ import { submitLead } from '@/shared/api/submit-lead'
 import { LegalConsentLabel } from '@/shared/components/legal/LegalConsentLabel'
 
 import {
+  TEST_NIGHT_CITY_PLACEHOLDER,
+  TEST_NIGHT_NAME_PLACEHOLDER,
   TEST_NIGHT_PHONE_PLACEHOLDER,
   TEST_NIGHT_SUBMIT_LABEL,
   TEST_NIGHT_SUBTITLE,
@@ -12,7 +14,12 @@ import {
 
 import { TestNightSocialRow } from './TestNightSocialRow'
 
+const inputClassName =
+  'type-input h-12 w-full rounded-[5px] border border-white/30 bg-white/10 px-4 text-white backdrop-blur-md placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60 min-[721px]:bg-transparent min-[721px]:backdrop-blur-none'
+
 export function TestNightForm() {
+  const [name, setName] = useState('')
+  const [city, setCity] = useState('')
   const [phone, setPhone] = useState('')
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -20,7 +27,12 @@ export function TestNightForm() {
   const [error, setError] = useState<string | null>(null)
   const policyCheckboxId = useId()
 
-  const canSubmit = isPolicyAccepted && phone.trim().length > 0 && !isSubmitting
+  const canSubmit =
+    isPolicyAccepted &&
+    name.trim().length > 0 &&
+    city.trim().length > 0 &&
+    phone.trim().length > 0 &&
+    !isSubmitting
 
   if (isSubmitted) {
     return (
@@ -34,7 +46,7 @@ export function TestNightForm() {
 
   return (
     <form
-      className="grid gap-4"
+      className="grid gap-3 min-[721px]:gap-4"
       onSubmit={(event) => {
         event.preventDefault()
         if (!canSubmit) return
@@ -44,6 +56,8 @@ export function TestNightForm() {
 
         void submitLead({
           source: TEST_NIGHT_SUBTITLE,
+          name: name.trim(),
+          city: city.trim(),
           phone: phone.trim(),
           policyAccepted: isPolicyAccepted,
         })
@@ -58,11 +72,44 @@ export function TestNightForm() {
           })
       }}
     >
+      <label className="sr-only" htmlFor="test-night-name">
+        {TEST_NIGHT_NAME_PLACEHOLDER}
+      </label>
+      <input
+        autoComplete="name"
+        className={inputClassName}
+        disabled={isSubmitting}
+        id="test-night-name"
+        name="name"
+        onChange={(event) => setName(event.target.value)}
+        placeholder={TEST_NIGHT_NAME_PLACEHOLDER}
+        required
+        type="text"
+        value={name}
+      />
+
+      <label className="sr-only" htmlFor="test-night-city">
+        {TEST_NIGHT_CITY_PLACEHOLDER}
+      </label>
+      <input
+        autoComplete="address-level2"
+        className={inputClassName}
+        disabled={isSubmitting}
+        id="test-night-city"
+        name="city"
+        onChange={(event) => setCity(event.target.value)}
+        placeholder={TEST_NIGHT_CITY_PLACEHOLDER}
+        required
+        type="text"
+        value={city}
+      />
+
       <label className="sr-only" htmlFor="test-night-phone">
         {TEST_NIGHT_PHONE_PLACEHOLDER}
       </label>
       <input
-        className="type-input h-12 w-full rounded-[5px] border border-white/30 bg-white/10 px-4 text-white backdrop-blur-md placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60 min-[721px]:bg-transparent min-[721px]:backdrop-blur-none"
+        autoComplete="tel"
+        className={inputClassName}
         disabled={isSubmitting}
         id="test-night-phone"
         name="phone"

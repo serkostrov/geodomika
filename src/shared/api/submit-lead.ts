@@ -3,6 +3,7 @@ import { trackLeadSubmitSuccess } from '@/shared/lib/yandex-metrika'
 export interface SubmitLeadPayload {
   source: string
   name?: string
+  city?: string
   phone: string
   message?: string
   policyAccepted: boolean

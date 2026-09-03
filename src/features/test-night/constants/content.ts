@@ -5,6 +5,10 @@ export const TEST_NIGHT_TITLE_LINE_WHITE = 'В КУПОЛЕ' as const
 export const TEST_NIGHT_SUBTITLE =
   'Запишитесь на тестовую ночь в куполе ГЕОДОМИКА' as const
 
+export const TEST_NIGHT_NAME_PLACEHOLDER = 'Ваше имя' as const
+
+export const TEST_NIGHT_CITY_PLACEHOLDER = 'Из какого вы города' as const
+
 export const TEST_NIGHT_PHONE_PLACEHOLDER = 'Введите номер телефона' as const
 
 export const TEST_NIGHT_SUBMIT_LABEL = 'Записаться' as const

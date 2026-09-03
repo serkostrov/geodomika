@@ -134,9 +134,10 @@ async function readJsonBody(req) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8'))
 }
 
-function buildLeadEmail({ source, name, phone, message }) {
+function buildLeadEmail({ source, name, city, phone, message }) {
   const safeSource = escapeHtml(source)
   const safeName = escapeHtml(name || '—')
+  const safeCity = escapeHtml(city || '—')
   const safePhone = escapeHtml(phone)
   const safeMessage = escapeHtml(message || '—').replaceAll('\n', '<br />')
 
@@ -146,6 +147,7 @@ function buildLeadEmail({ source, name, phone, message }) {
     '',
     `Источник: ${source}`,
     `Имя: ${name || '—'}`,
+    `Город: ${city || '—'}`,
     `Телефон: ${phone}`,
     `Сообщение: ${message || '—'}`,
   ].join('\n')
@@ -155,6 +157,7 @@ function buildLeadEmail({ source, name, phone, message }) {
       <h2 style="margin: 0 0 16px;">Новая заявка с сайта Геодомика</h2>
       <p style="margin: 0 0 8px;"><strong>Источник:</strong> ${safeSource}</p>
       <p style="margin: 0 0 8px;"><strong>Имя:</strong> ${safeName}</p>
+      <p style="margin: 0 0 8px;"><strong>Город:</strong> ${safeCity}</p>
       <p style="margin: 0 0 8px;"><strong>Телефон:</strong> ${safePhone}</p>
       <p style="margin: 0 0 8px;"><strong>Сообщение:</strong><br />${safeMessage}</p>
     </div>
@@ -220,6 +223,7 @@ async function handleLeadRequest(req, res) {
 
   const source = typeof body.source === 'string' ? body.source.trim() : ''
   const name = typeof body.name === 'string' ? body.name.trim() : ''
+  const city = typeof body.city === 'string' ? body.city.trim() : ''
   const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
   const message = typeof body.message === 'string' ? body.message.trim() : ''
   const policyAccepted = Boolean(body.policyAccepted)
@@ -246,7 +250,7 @@ async function handleLeadRequest(req, res) {
   }
 
   try {
-    const email = buildLeadEmail({ source, name, phone, message })
+    const email = buildLeadEmail({ source, name, city, phone, message })
     await sendSmtpBzEmail(email)
     sendJson(res, 200, { ok: true })
   } catch (error) {
