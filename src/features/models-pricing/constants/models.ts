@@ -45,9 +45,9 @@ export const MODELS_PRICING_MODELS: ModelsPricingModelData[] = [
     height: 'высота: 2,4 м',
     walls: 'стены: 100 мм',
     prices: [
-      { label: 'Домокомплект', value: '345 000 ₽' },
-      { label: 'Со\u00A0сборкой', value: '660 000 ₽' },
-      { label: 'Под ключ', value: '990 000 ₽' },
+      { label: 'Домокомплект', value: '≈24000р./м²' },
+      { label: 'Со\u00A0сборкой', value: '≈41000р./м²' },
+      { label: 'Под ключ', value: '≈65000р./м²' },
     ],
   },
   {
@@ -64,9 +64,9 @@ export const MODELS_PRICING_MODELS: ModelsPricingModelData[] = [
     height: 'высота: 3 м',
     walls: 'стены: 125 мм',
     prices: [
-      { label: 'Домокомплект', value: '510 000 ₽' },
-      { label: 'Со\u00A0сборкой', value: '900 000 ₽' },
-      { label: 'Под ключ', value: '1 450 000 ₽' },
+      { label: 'Домокомплект', value: '≈24000р./м²' },
+      { label: 'Со\u00A0сборкой', value: '≈41000р./м²' },
+      { label: 'Под ключ', value: '≈65000р./м²' },
     ],
   },
   {
@@ -83,9 +83,9 @@ export const MODELS_PRICING_MODELS: ModelsPricingModelData[] = [
     height: 'высота: 3,6 м',
     walls: 'стены: 140 мм',
     prices: [
-      { label: 'Домокомплект', value: '750 000 ₽' },
-      { label: 'Со\u00A0сборкой', value: '1 300 000 ₽' },
-      { label: 'Под ключ', value: '2 150 000 ₽' },
+      { label: 'Домокомплект', value: '≈24000р./м²' },
+      { label: 'Со\u00A0сборкой', value: '≈41000р./м²' },
+      { label: 'Под ключ', value: '≈65000р./м²' },
     ],
   },
   {
@@ -102,9 +102,9 @@ export const MODELS_PRICING_MODELS: ModelsPricingModelData[] = [
     height: 'высота: 3,5 м',
     walls: 'стены: 140 мм',
     prices: [
-      { label: 'Домокомплект', value: '1 065 000 ₽' },
-      { label: 'Со\u00A0сборкой', value: '1 825 000 ₽' },
-      { label: 'Под ключ', value: '3 050 000 ₽' },
+      { label: 'Домокомплект', value: '≈23300р./м²' },
+      { label: 'Со\u00A0сборкой', value: '≈39800р./м²' },
+      { label: 'Под ключ', value: '≈63500р./м²' },
     ],
   },
   {
@@ -121,9 +121,9 @@ export const MODELS_PRICING_MODELS: ModelsPricingModelData[] = [
     height: 'высота: 4,7 м',
     walls: 'с антресолью',
     prices: [
-      { label: 'Домокомплект', value: '1 165 000 ₽' },
-      { label: 'Со\u00A0сборкой', value: '2 100 000 ₽' },
-      { label: 'Под ключ', value: '3 360 000 ₽' },
+      { label: 'Домокомплект', value: '≈24000р./м²' },
+      { label: 'Со\u00A0сборкой', value: '≈41000р./м²' },
+      { label: 'Под ключ', value: '≈65000р./м²' },
     ],
   },
 ]
